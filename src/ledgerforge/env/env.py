@@ -11,6 +11,9 @@ import json
 import subprocess
 import sys
 import time
+from collections.abc import Callable
+from concurrent.futures import ThreadPoolExecutor
+from contextlib import suppress
 from typing import Any
 
 from ledgerforge.contracts.schemas import (
@@ -30,6 +33,7 @@ TASK = (
     "doc ids, the base-currency ledger impact, and evidence ids (doc ids, ledger row ids, "
     "fx ids 'date:SRC:TGT')."
 )
+_EVALUATOR_TIMEOUT_S = 10.0
 
 
 class ToolError(Exception):
@@ -48,19 +52,53 @@ class EvaluatorClient:
             stdout=subprocess.PIPE,
             text=True,
         )
+        self._worker = ThreadPoolExecutor(max_workers=1)
+        self._closed = False
 
     def call(self, request: dict[str, Any]) -> dict[str, Any]:
-        self._proc.stdin.write(json.dumps(request) + "\n")
-        self._proc.stdin.flush()
-        resp = json.loads(self._proc.stdout.readline())
+        if self._closed:
+            raise RuntimeError("evaluator connection closed")
+        pending = self._worker.submit(self._exchange, json.dumps(request) + "\n")
+        try:
+            resp = pending.result(timeout=_EVALUATOR_TIMEOUT_S)
+        except TimeoutError:
+            self._proc.kill()
+            self.close()
+            raise RuntimeError("evaluator request timed out") from None
+        except (OSError, EOFError, ValueError):
+            self.close()
+            raise RuntimeError("evaluator connection lost") from None
         if "error" in resp:
             raise RuntimeError(f"evaluator: {resp['error']}")
         return resp
 
+    def _exchange(self, line: str) -> dict[str, Any]:
+        assert self._proc.stdin is not None and self._proc.stdout is not None
+        self._proc.stdin.write(line)
+        self._proc.stdin.flush()
+        reply = self._proc.stdout.readline()
+        if not reply.endswith("\n"):
+            raise EOFError
+        response = json.loads(reply)
+        if not isinstance(response, dict):
+            raise ValueError("expected an evaluator response object")
+        return response
+
     def close(self) -> None:
-        if self._proc.poll() is None:
+        if self._closed:
+            return
+        self._closed = True
+        self._worker.shutdown()
+        assert self._proc.stdin is not None and self._proc.stdout is not None
+        with suppress(OSError):
             self._proc.stdin.close()
+        try:
             self._proc.wait(timeout=10)
+        except subprocess.TimeoutExpired:
+            self._proc.kill()
+            self._proc.wait()
+        finally:
+            self._proc.stdout.close()
 
 
 class AuditEnv:
@@ -69,10 +107,13 @@ class AuditEnv:
         mode: str = "train",
         evaluator: EvaluatorClient | None = None,
         time_limit_s: float = EPISODE_TIME_LIMIT_S,
+        *,
+        clock: Callable[[], float] = time.monotonic,
     ) -> None:
         self.mode = mode
         self.evaluator = evaluator or EvaluatorClient(mode)
         self.time_limit_s = time_limit_s
+        self._clock = clock
         self._data: dict[str, Any] = {}
         self._index: dict[str, dict[str, dict[str, Any]]] = {}
         self._docs: dict[str, dict[str, Any]] = {}
@@ -92,7 +133,7 @@ class AuditEnv:
             for r in self._data["fx"]
         }
         self._docs = {d["doc_id"]: d for d in self._data["invoices"] + self._data["payments"]}
-        self.steps, self.done, self._t0 = 0, False, time.monotonic()
+        self.steps, self.done, self._t0 = 0, False, self._clock()
         m = self._data["manifest"]
         obs = {
             "task": TASK,
@@ -105,12 +146,15 @@ class AuditEnv:
         return obs, {"episode_id": m["episode_id"]}
 
     def close(self) -> None:
+        self.done = True
         self.evaluator.close()
 
     # --- step --------------------------------------------------------------------------------
     def step(self, action: Any) -> tuple[dict[str, Any], float, bool, bool, dict[str, Any]]:
         if self.done:
             return self._obs(error=("episode_over", "call reset() first")), 0.0, True, False, {}
+        if self._clock() - self._t0 >= self.time_limit_s:
+            return self._finish(None, terminated=False)
         self.steps += 1
         tool = action.get("tool") if isinstance(action, dict) else None
         args = action.get("args", {}) if isinstance(action, dict) else {}
@@ -123,19 +167,20 @@ class AuditEnv:
             obs = self._obs(result=result)
         except ToolError as e:
             obs = self._obs(error=(e.code, e.message))
-        over_time = time.monotonic() - self._t0 > self.time_limit_s
-        if self.steps >= MAX_STEPS or over_time:
+        if self.steps >= MAX_STEPS or self._clock() - self._t0 >= self.time_limit_s:
             return self._finish(None, terminated=False)
         return obs, 0.0, False, False, {}
 
-    def _finish(self, submission: Any, terminated: bool):
+    def _finish(
+        self, submission: Any, terminated: bool
+    ) -> tuple[dict[str, Any], float, bool, bool, dict[str, Any]]:
         inspection = self.steps - 1 if terminated else self.steps
         if submission is None and not terminated:  # truncated: score an empty submission
             submission = {"episode_id": self._data["manifest"]["episode_id"], "findings": []}
+        self.done = True
         resp = self.evaluator.call(
             {"cmd": "score", "submission": submission, "inspection_steps": inspection}
         )
-        self.done = True
         reward = float(resp["reward"]) if self.mode == "train" else 0.0
         obs = self._obs(result={"accepted": True})
         info = {"report": resp["report"]} if self.mode == "train" else {}
@@ -161,9 +206,11 @@ class AuditEnv:
             return self._index[table][key]
         if tool == "get_document":
             doc_id = args.get("doc_id")
+            if not isinstance(doc_id, str) or not doc_id.strip():
+                raise ToolError("bad_args", "doc_id must be a non-empty string")
             if doc_id in ("manifest", "policy"):
                 return self._data[doc_id]
-            if not isinstance(doc_id, str) or doc_id not in self._docs:
+            if doc_id not in self._docs:
                 raise ToolError("not_found", "no document with that id")
             return self._docs[doc_id]
         if tool == "calculator":
