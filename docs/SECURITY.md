@@ -10,7 +10,7 @@ An untrusted policy may try to read private truth, inflate its reward, or disrup
 | `env/` and `agents/` never import the key module | static + fresh-interpreter check | `test_agent_side_never_touches_the_key` |
 | Strict submission schema, size caps (30 findings, 10 ids, 1000 chars) | `contracts/submission.py` | `test_contracts` |
 | One scored submission per episode | evaluator + env | `test_cannot_submit_twice` |
-| Eval mode withholds reward and report | env, evaluator | `test_env` |
+| Eval mode withholds reward and report until `finalize`; `reset`/`score` rejected after it | env, evaluator | `test_eval_mode_report_requires_finalize` |
 | Calculator: AST whitelist, no names/calls/attrs, ≤256 chars, depth ≤32, Decimal | `env/calculator.py` | `test_env` |
 | Step limit 100, 60 s limit, page ≤50 | `env/env.py` | `test_env` |
 | Evaluator returns errors for invalid requests and keeps serving | `service.main` | `test_adversarial` |
