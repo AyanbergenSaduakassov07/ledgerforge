@@ -36,7 +36,7 @@ legitimate look-alikes.
 
 ## ADR-008 Fault preconditions prevent cascades
 Decision: F1/F3/F4 targets are unpaid at injection time (F1 interaction A excepted by design), F2 only
-on base-currency payments without a legitimate remainder; foreign payments settle one invoice fully.
+on payments without a legitimate remainder (any currency since ADR-015); foreign payments settle one invoice fully.
 Consequence: every injected fault yields exactly the declared issues; enforced again by ADR-009.
 
 ## ADR-009 Independent auditor as acceptance gate
@@ -76,3 +76,15 @@ changes); re-run the gate on the renamed episode. Cap `n_invoices` at 100 (worst
 reject any episode outside 200–2000 ledger rows / 20–200 documents in the gate.
 Consequence: renamed ids may coincide with ids of the *other* episode of a pair (harmless). Ledger size
 stays ≈250–600 rows, inside the supported range but not near 2000.
+
+## ADR-015 Allocation faults on any payment currency (generator 0.2.0)
+Context: ADR-008 limited F2 to base-currency payments, and the fault drew its moved amount from the
+remittance (payment currency) while editing a base-currency AP row. That was a latent units bug,
+masked only by the base-currency restriction. The rule-based reconciler reached F1 1.0 partly
+because it skips foreign payments.
+Decision: F2 may target any fully allocated payment. The moved amount is drawn from the
+base-currency AP relief row, and a misapplied target must share the payment's currency. The auditor
+was already currency-generic, so the contract and the issue amounts (base currency) are unchanged.
+Generator version 0.2.0; open episodes and benchmark outputs were regenerated.
+Consequence: about 27% of allocation faults are now on foreign payments. The reconciler misses those
+(3 false negatives on train + mirror, F1 0.98) and still has no false positives.

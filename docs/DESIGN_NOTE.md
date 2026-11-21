@@ -46,5 +46,5 @@ Flag-everything scores negative, silence on flawed books scores −1, and malfor
 - One minimal evidence set per issue (ADR-006).
 - Ledgers stay at roughly 250–600 rows, inside 200–2000 but not near the upper bound.
 - Agent and evaluator run as the same OS user, so isolation is a process boundary, not a sandbox.
-- Allocation faults cover base-currency payments only (ADR-008).
+- A rule-based reconciler that encodes the published rules nearly saturates the benchmark (F1 0.98–1.0).
 - The runtime uses the standard library only (ADR-001).
