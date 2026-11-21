@@ -1,4 +1,4 @@
-.PHONY: install lint test demo verify walkthrough bench ablation figures clean
+.PHONY: install lint test demo verify walkthrough web bench ablation figures clean
 
 install:
 	uv sync --frozen
@@ -18,6 +18,9 @@ verify: install lint test demo
 
 walkthrough:
 	uv run python -m ledgerforge.walkthrough
+
+web:
+	uv run --frozen --group web streamlit run src/ledgerforge/web.py
 
 bench:
 	uv run ledgerforge bench

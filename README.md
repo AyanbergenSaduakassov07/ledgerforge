@@ -4,7 +4,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.11-3776AB" alt="Python 3.11">
-  <img src="https://img.shields.io/badge/tests-193_passing-16845B" alt="193 tests passing">
+  <img src="https://img.shields.io/badge/tests-199_with_web-16845B" alt="199 tests with the web app enabled">
   <img src="https://img.shields.io/badge/evaluation-offline-315D8A" alt="Offline evaluation">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-7953A9" alt="MIT license"></a>
 </p>
@@ -22,7 +22,7 @@ A separate evaluator process scores the policy's findings.
 Built for the FinTech track of REC Genesis Hackathon 2026. All companies, people, and amounts are
 synthetic. Evaluation runs offline on a CPU using the Python standard library.
 
-[Quick start](#quick-start) · [Episode generation](#episode-generation) ·
+[Quick start](#quick-start) · [Web workspace](#web-workspace) · [Episode generation](#episode-generation) ·
 [Agent interface](#agent-interface) · [Benchmark results](#benchmark-results) ·
 [Dataset](#dataset) · [Reproducibility](#reproducibility)
 
@@ -46,6 +46,32 @@ docker run --rm --network none ledgerforge
 ```
 
 The container command runs the test suite and replay demo with networking disabled.
+
+## Web workspace
+
+```bash
+make web
+```
+
+Inspect invoices, payments, ledger entries, and exchange rates in the optional Streamlit
+workspace. Draft findings alongside the records and submit them to the same evaluator used
+by the CLI. Switch languages with **Language / Язык** in the sidebar.
+[Open the local workspace](http://127.0.0.1:8501).
+
+[![LedgerForge web workspace with invoice evidence and a findings form](docs/assets/web-workspace-en.webp)](docs/assets/web-workspace-en.webp)
+
+<details>
+<summary>See a completed audit</summary>
+
+The evaluator matched both findings in this run, a duplicate invoice and a linked payment
+allocation error.
+
+[![Audit score with two true positives and an F1 score of 1.000](docs/assets/web-score-en.webp)](docs/assets/web-score-en.webp)
+
+</details>
+
+Each new evidence page or record lookup uses one of the 100 steps. You can read and draft
+findings at your own pace.
 
 ## Walkthrough
 
