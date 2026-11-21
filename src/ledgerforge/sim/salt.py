@@ -11,6 +11,7 @@ import random
 from typing import Any
 
 from ledgerforge.contracts.schemas import PublicEpisode
+from ledgerforge.sim.secret import keyed
 
 DIGITS = "0123456789"
 ROW_ID_FIELDS = ("row_id", "entity_id", "invoice_id", "payment_id")
@@ -18,7 +19,7 @@ DOC_ID_FIELDS = ("doc_id", "entity_id", "invoice_id", "payment_id")
 
 
 def digit_table(salt: str) -> dict[int, int]:
-    r = random.Random(f"ledgerforge:id_salt:{salt}")
+    r = random.Random(keyed(f"ledgerforge:id_salt:{salt}"))
     perm = list(DIGITS)
     while any(a == b for a, b in zip(perm, DIGITS, strict=True)):  # derangement: every id changes
         r.shuffle(perm)

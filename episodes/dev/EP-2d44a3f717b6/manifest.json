@@ -1,8 +1,13 @@
 {
   "schema_version": "1.0.0",
-  "generator_version": "0.3.0",
+  "generator_version": "0.4.0",
   "episode_id": "EP-2d44a3f717b6",
   "base_currency": "EUR",
+  "currency_exponents": {
+    "EUR": 2,
+    "RUB": 2,
+    "USD": 2
+  },
   "period_start": "2025-07-01",
   "period_end": "2025-09-30",
   "timezone": "Asia/Almaty",

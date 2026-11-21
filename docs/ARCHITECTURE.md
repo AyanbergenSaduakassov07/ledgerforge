@@ -55,7 +55,7 @@ attempt, mutations, counterfactual) goes to `provenance.json`, never to the agen
 | Matching rules + tolerance | `evaluation/matcher.py` | `test_matcher` | done |
 | Official reward formula | `matcher.reward_from` | `test_matcher`, `test_slice` | done |
 | Malformed → −1, no double submit | `contracts/submission.py`, env | `test_contracts`, `test_env` | done |
-| Closed eval withholds reward | `Evaluator("eval")`, env | `test_env` | done |
+| Closed eval withholds reward until `finalize` | `Evaluator("eval")`, env | `test_env` | done |
 | Deterministic seeds | phase RNGs | `test_generation_is_identical_across_processes` | done |
 | Trajectories + replay | `benchmark/trajectory.py` | `test_trajectory_replays_identically` | done |
 | ID / order metamorphic pairs | `sim/salt.py`, `project()` | `test_metamorphic` | done |

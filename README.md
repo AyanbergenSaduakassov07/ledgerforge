@@ -47,6 +47,17 @@ docker run --rm --network none ledgerforge
 
 The container command runs the test suite and replay demo with networking disabled.
 
+For a closed evaluation, the jury sets a private generator key. The evaluator mixes it into every
+random stream and the episode id with HMAC-SHA256, so the open generator and a guessed seed can no
+longer rebuild the private truth. Without the key, open train and dev episodes stay byte-identical.
+
+```bash
+docker run --rm --network none -e LEDGERFORGE_SECRET="<jury-only key>" ledgerforge
+```
+
+Only the evaluator side (`sim/`, `evaluation/`) reads `LEDGERFORGE_SECRET`; `env/` and `agents/`
+never import it. In eval mode without a key, the evaluator prints a warning to stderr.
+
 ## Web workspace
 
 ```bash
@@ -204,8 +215,9 @@ are copied for replay.
 
 An episode allows **100 steps**, including submission, and **60 seconds**. Tool errors return
 bounded error observations, and truncation scores an empty submission. Evaluator requests have a
-10-second timeout. In evaluation mode, the evaluator acknowledges submission and makes scores
-available to the trusted runner at the reporting stage.
+10-second timeout. In evaluation mode, the evaluator acknowledges submission and keeps scores
+until the trusted runner ends the run with `{"cmd": "finalize"}`. Only then does
+`{"cmd": "report"}` return reports, and further `reset` and `score` requests are rejected.
 
 Configuration covers industry, difficulty (`basic`, `intermediate`, `advanced`, `expert`), base
 currency, counts by fault or interaction, distractors, an optional `n_invoices` between 20 and 100,
@@ -284,7 +296,10 @@ interactions. The four baselines share the same case recipes and scoring rules.
 The reconciler found **71 true positives, zero false positives, and zero false negatives** across
 the 40 cases. It averaged between 22.20 and 25.05 inspections across the three splits. This result
 measures how well a policy that already encodes the published rules can recover the labels. The
-random explorer's nonzero mean F1 comes from clean episodes.
+random explorer's nonzero mean F1 comes from clean episodes. On a clean episode an empty
+submission has F1 1 but precision and recall 0 (spec section 05), so the mean precision and recall
+in `outputs/benchmarks/summary.md` stay below 1 even for the oracle (0.800 on train and dev, 0.750
+on the mirror).
 
 [Summary](outputs/benchmarks/summary.md) · [Per-episode metrics](outputs/benchmarks/metrics.json) ·
 [Public trajectories](outputs/benchmarks/trajectories.jsonl) ·

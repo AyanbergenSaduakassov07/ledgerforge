@@ -9,6 +9,7 @@
     "generator_version",
     "episode_id",
     "base_currency",
+    "currency_exponents",
     "period_start",
     "period_end",
     "timezone",
@@ -30,6 +31,18 @@
     "base_currency": {
       "type": "string",
       "pattern": "^[A-Z]{3}$"
+    },
+    "currency_exponents": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[A-Z]{3}$"
+      },
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 4
+      }
     },
     "period_start": {
       "type": "string",

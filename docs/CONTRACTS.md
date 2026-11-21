@@ -9,7 +9,7 @@ checks: `tests/test_contracts.py`, `tests/test_matcher.py`, `tests/test_env.py`.
 
 | Rule | Value |
 |---|---|
-| Amounts | integers in minor units; exponents KZT/USD/EUR/RUB/CNY 2, JPY 0, KWD 3 |
+| Amounts | integers in minor units; exponents KZT/USD/EUR/RUB/CNY 2, JPY 0, KWD 3, published per episode in `manifest.currency_exponents` |
 | Ledger currency | every ledger row is in `base_currency` (functional currency); native amounts live on documents |
 | Rate | decimal string, target units per **one** source unit; `fx.csv` holds business days, period ±21 days |
 | Conversion | `round_half_even(amount_minor × rate × 10^(exp_target − exp_source))` |
@@ -23,6 +23,11 @@ checks: `tests/test_contracts.py`, `tests/test_matcher.py`, `tests/test_env.py`.
 `manifest.json`, `policy.json`, `ledger.csv`, `invoices.jsonl`, `payments.jsonl`, `fx.csv`. Schemas:
 `schemas/{manifest,ledger_row,invoice,payment,fx_row}.schema.json`. Missing references are explicit
 nulls (JSON `null`; in CSV an empty field).
+
+- `manifest.json`: `schema_version, generator_version, episode_id, base_currency,
+  currency_exponents, period_start, period_end, timezone, counts, rounding`.
+  `currency_exponents` maps every currency that appears in the episode (base, documents, fx) to
+  its minor-unit exponent, e.g. `{"JPY": 0, "KZT": 2, "USD": 2}` (generator ≥ 0.4.0).
 
 - `ledger.csv`: `row_id, timestamp, account, debit_minor, credit_minor, currency, entity_id, invoice_id, payment_id`.
   Exactly one of debit/credit is non-zero.
@@ -105,13 +110,17 @@ validator is authoritative and accepts any case.)
 TP needs: same type, same affected set, `|claimed − expected| ≤ 1` minor unit, same currency, evidence ⊇
 an allowed set. One-to-one maximum matching (Kuhn), deterministic order. Repeats are FP.
 `F1 = 2TP/(2TP+FP+FN)`; no truth and no findings → 1; truth empty with findings → 0.
+`P = TP/|findings|`, `R = TP/|truth|`; a zero denominator gives 0 (so an empty submission on
+clean books reports P = R = 0 and F1 = 1).
 `reward = clip(2·F1 − 1 − 0.002·inspection_steps, −1, 1)`; malformed → −1.
 `ScoreReport`: `episode_id, valid, tp, fp, fn, precision, recall, f1, inspection_steps, reward, matched, error`.
 
 ## 7. Evaluator process protocol (`evaluation/service.py`)
 
 JSON lines over stdin/stdout of `python -m ledgerforge.evaluation.service <train|eval>`:
-`reset → {public}`, `score → {reward, report}` (train) or `{accepted}` (eval), `report → {reports}`.
+`reset → {public}`, `score → {reward, report}` (train) or `{accepted}` (eval), `finalize → {finalized}`,
+`report → {reports}`. In eval mode `report` is an error until `finalize`; after it `reset` and
+`score` are rejected.
 One scored submission per episode. Truth stays in the evaluator process. Every request must be a JSON object; `seed` and `inspection_steps` must be JSON integers. Anything else gets `{error}` and the process keeps serving.
 
 ## 8. Python-side shapes

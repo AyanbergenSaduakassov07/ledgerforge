@@ -54,9 +54,39 @@ def test_eval_mode_withholds_reward():
         sub = {"episode_id": info["episode_id"], "findings": []}
         _, reward, terminated, _, step_info = e.step({"tool": "submit", "args": sub})
         assert terminated and reward == 0.0 and step_info == {}
+        e.evaluator.call({"cmd": "finalize"})
         assert e.evaluator.call({"cmd": "report"})["reports"][0]["reward"] == 0.0 + 1.0
     finally:
         e.close()
+
+
+def test_eval_mode_report_requires_finalize():
+    from ledgerforge.env.env import AuditEnv
+
+    e = AuditEnv("eval")
+    try:
+        _, info = e.reset(1)
+        e.step({"tool": "submit", "args": {"episode_id": info["episode_id"], "findings": []}})
+        with pytest.raises(RuntimeError) as early:
+            e.evaluator.call({"cmd": "report"})
+        assert "finalize" in str(early.value)
+        assert not any(k in str(early.value) for k in ("reward", "precision", "tp", "ISS-"))
+        assert e.evaluator.call({"cmd": "finalize"}) == {"finalized": True}
+        reports = e.evaluator.call({"cmd": "report"})["reports"]
+        assert len(reports) == 1 and reports[0]["reward"] == 1.0
+        for request in ({"cmd": "reset", "seed": 2}, {"cmd": "score", "submission": {}}):
+            with pytest.raises(RuntimeError, match="run finalized"):
+                e.evaluator.call(request)
+    finally:
+        e.close()
+
+
+def test_train_mode_report_needs_no_finalize(env):
+    _, info = env.reset(1)
+    env.step({"tool": "submit", "args": {"episode_id": info["episode_id"], "findings": []}})
+    assert len(env.evaluator.call({"cmd": "report"})["reports"]) == 1
+    env.evaluator.call({"cmd": "finalize"})
+    env.reset(1)  # train mode keeps working after finalize
 
 
 @pytest.mark.parametrize(

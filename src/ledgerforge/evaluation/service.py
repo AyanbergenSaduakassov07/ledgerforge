@@ -1,13 +1,16 @@
 """Evaluator process. Owns generation and private truth; speaks JSON lines on stdin/stdout.
 
 The agent-side environment only ever receives the public episode and a score (train mode) or an
-acknowledgement (eval mode). Truth never crosses this boundary.
+acknowledgement (eval mode). Truth never crosses this boundary. In eval mode rewards and
+diagnostics stay here until the trusted runner ends the run with "finalize".
 
 Requests:
   {"cmd": "reset", "seed": int, "config": {...}}            -> {"public": {...}}
   {"cmd": "score", "submission": any, "inspection_steps": n} -> {"reward": r, "report": {...}}
                                                                  (eval mode: {"accepted": true})
-  {"cmd": "report"}                                          -> {"reports": [...]}  (end of run)
+  {"cmd": "finalize"}                                        -> {"finalized": true}  (end of run)
+  {"cmd": "report"}                                          -> {"reports": [...]}
+                                     (eval mode: only after finalize; reset/score then rejected)
 """
 
 from __future__ import annotations
@@ -19,6 +22,7 @@ from typing import Any
 from ledgerforge.contracts.schemas import ScenarioConfig
 from ledgerforge.evaluation.matcher import score
 from ledgerforge.sim.episode import GenerationFailed, generate_episode
+from ledgerforge.sim.secret import SECRET_ENV, secret_key
 
 MODES = ("train", "eval")
 
@@ -28,15 +32,25 @@ class Evaluator:
         if mode not in MODES:
             raise ValueError(f"mode must be one of {MODES}")
         self.mode = mode
+        if mode == "eval" and not secret_key():
+            # stderr is the operator's console; it never reaches agent observations.
+            print(
+                f"ledgerforge: WARNING: eval mode without {SECRET_ENV}; episodes are "
+                "reproducible from the open generator and the seed",
+                file=sys.stderr,
+            )
         self.reports: list[dict[str, Any]] = []
         self._truth = None
         self._aliases: dict[str, str] = {}
         self._episode_id = ""
+        self._finalized = False
 
     def handle(self, req: Any) -> dict[str, Any]:
         if not isinstance(req, dict):
             return {"error": "request must be a JSON object"}
         cmd = req.get("cmd")
+        if self.mode == "eval" and self._finalized and cmd in ("reset", "score"):
+            return {"error": "run finalized"}
         if cmd == "reset":
             config = req.get("config")
             if config is not None and not isinstance(config, dict):
@@ -63,7 +77,12 @@ class Evaluator:
             if self.mode == "eval":
                 return {"accepted": True}
             return {"reward": report["reward"], "report": report}
+        if cmd == "finalize":
+            self._finalized, self._truth = True, None
+            return {"finalized": True}
         if cmd == "report":
+            if self.mode == "eval" and not self._finalized:
+                return {"error": "report is available after finalize in eval mode"}
             return {"reports": self.reports}
         return {"error": "unknown command"}
 

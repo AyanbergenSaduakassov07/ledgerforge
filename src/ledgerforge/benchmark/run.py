@@ -94,6 +94,7 @@ def _run_split(split: str, cases: list[Case], stream: TextIO) -> dict[str, Any]:
                 )
                 if policy.name != OraclePolicy.name:
                     _write_trajectory(stream, split, records)
+        env.evaluator.call({"cmd": "finalize"})  # eval mode releases reports only after this
         reports = env.evaluator.call({"cmd": "report"})["reports"]
     finally:
         env.close()
