@@ -105,6 +105,8 @@ validator is authoritative and accepts any case.)
 TP needs: same type, same affected set, `|claimed − expected| ≤ 1` minor unit, same currency, evidence ⊇
 an allowed set. One-to-one maximum matching (Kuhn), deterministic order. Repeats are FP.
 `F1 = 2TP/(2TP+FP+FN)`; no truth and no findings → 1; truth empty with findings → 0.
+`P = TP/|findings|`, `R = TP/|truth|`; a zero denominator gives 0 (so an empty submission on
+clean books reports P = R = 0 and F1 = 1).
 `reward = clip(2·F1 − 1 − 0.002·inspection_steps, −1, 1)`; malformed → −1.
 `ScoreReport`: `episode_id, valid, tp, fp, fn, precision, recall, f1, inspection_steps, reward, matched, error`.
 
