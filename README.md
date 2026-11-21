@@ -215,8 +215,9 @@ are copied for replay.
 
 An episode allows **100 steps**, including submission, and **60 seconds**. Tool errors return
 bounded error observations, and truncation scores an empty submission. Evaluator requests have a
-10-second timeout. In evaluation mode, the evaluator acknowledges submission and makes scores
-available to the trusted runner at the reporting stage.
+10-second timeout. In evaluation mode, the evaluator acknowledges submission and keeps scores
+until the trusted runner ends the run with `{"cmd": "finalize"}`. Only then does
+`{"cmd": "report"}` return reports, and further `reset` and `score` requests are rejected.
 
 Configuration covers industry, difficulty (`basic`, `intermediate`, `advanced`, `expert`), base
 currency, counts by fault or interaction, distractors, an optional `n_invoices` between 20 and 100,
