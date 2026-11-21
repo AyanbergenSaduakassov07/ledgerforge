@@ -84,3 +84,8 @@ Commands: `make verify` → ruff clean, pytest all passed (count in commit messa
 
 ## Codex CX-06 (agent/cx-06, uncommitted in ../ledgerforge-cx-06) — not merged
 - Codex finished a second ablation that *disables* each detector. It overlaps cl-09 (ADR-017), which swaps each rule for a shortcut, and both edit `agents/reconciler.py`. Disabling a detector only loses that fault type (F1 ≈0.80–0.87, FN only); the precision-trap result (credit-note offset off → 10–20 FP) is already covered by cl-09's `naive duplicates` row. Kept as-is in its worktree for reference; not merged to avoid two ablation APIs.
+
+## cl-11 review fixes (Opus code-reviewer + python-reviewer on f6881c0..b6cb117)
+- Opus review: APPROVE for cl-09/cl-10; found an existing crash path. `evaluation/service.py` called `int()` on `seed`/`inspection_steps`, so JSON `Infinity`/`1e999` raised `OverflowError` and killed the evaluator; a non-object request line (`[]`, `null`) raised `AttributeError`. Fix: requests must be objects, `config` an object or null, `seed`/`inspection_steps` strict ints (floats, bools and strings rejected), `OverflowError` caught. Test: `test_adversarial.py::test_hostile_request_gets_an_error_and_the_evaluator_survives` (8 cases, raw lines to the subprocess).
+- Python review: `benchmark.run.mirror_cases` made public (was imported privately by ablation); ablation raises if an episode returns no report; the reconciler builds its `FxTable` once and raises instead of silently skipping conversion when no FX rate covers a payment date.
+- Ablation report regenerated: unchanged. 184 tests pass.

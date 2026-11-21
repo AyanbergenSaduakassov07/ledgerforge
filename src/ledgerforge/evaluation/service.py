@@ -33,11 +33,16 @@ class Evaluator:
         self._aliases: dict[str, str] = {}
         self._episode_id = ""
 
-    def handle(self, req: dict[str, Any]) -> dict[str, Any]:
+    def handle(self, req: Any) -> dict[str, Any]:
+        if not isinstance(req, dict):
+            return {"error": "request must be a JSON object"}
         cmd = req.get("cmd")
         if cmd == "reset":
+            config = req.get("config")
+            if config is not None and not isinstance(config, dict):
+                return {"error": "config must be an object or null"}
             public, truth = generate_episode(
-                int(req["seed"]), ScenarioConfig.from_dict(req.get("config"))
+                _strict_int(req.get("seed"), "seed"), ScenarioConfig.from_dict(config)
             )
             self._truth, self._episode_id = list(truth.issues), truth.episode_id
             self._aliases = {i["invoice_id"]: i["doc_id"] for i in public.invoices}
@@ -51,7 +56,7 @@ class Evaluator:
                 self._episode_id,
                 self._truth,
                 self._aliases,
-                int(req["inspection_steps"]),
+                _strict_int(req.get("inspection_steps"), "inspection_steps"),
             ).to_dict()
             self._truth = None  # one scored submission per episode
             self.reports.append(report)
@@ -63,13 +68,20 @@ class Evaluator:
         return {"error": "unknown command"}
 
 
+def _strict_int(value: Any, name: str) -> int:
+    # json accepts Infinity/NaN and floats; int() of those crashes or silently truncates
+    if type(value) is not int:
+        raise ValueError(f"{name} must be an integer")
+    return value
+
+
 def main() -> None:
     mode = sys.argv[1] if len(sys.argv) > 1 else "train"
     ev = Evaluator(mode)
     for line in sys.stdin:
         try:
             resp = ev.handle(json.loads(line))
-        except (ValueError, KeyError, TypeError, GenerationFailed) as e:
+        except (ValueError, KeyError, TypeError, OverflowError, GenerationFailed) as e:
             resp = {"error": f"{type(e).__name__}: {e}"}  # config errors only; no truth inside
         sys.stdout.write(json.dumps(resp) + "\n")
         sys.stdout.flush()

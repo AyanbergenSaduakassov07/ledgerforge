@@ -40,7 +40,7 @@ _TRAJECTORY_FIELDS = (
 )
 
 
-def _mirror_cases() -> list[Case]:
+def mirror_cases() -> list[Case]:
     currencies = ("KZT", "USD", "EUR")
     cases = []
     for index in range(20):
@@ -208,7 +208,7 @@ def _summary_markdown(results: dict[str, Any], passed: int, pairs: int) -> str:
 
 def run_benchmark(splits_path: Path, output: Path) -> bool:
     plan = json.loads(splits_path.read_text(encoding="utf-8"))
-    cases = {"train": plan["train"], "dev": plan["dev"], "mirror": _mirror_cases()}
+    cases = {"train": plan["train"], "dev": plan["dev"], "mirror": mirror_cases()}
     output.mkdir(parents=True, exist_ok=True)
     with (output / "trajectories.jsonl").open("w", encoding="utf-8") as stream:
         results = {split: _run_split(split, rows, stream) for split, rows in cases.items()}

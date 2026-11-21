@@ -1,5 +1,8 @@
 """Adversarial scoring checks through the public environment entry point."""
 
+import json
+import subprocess
+import sys
 from itertools import permutations
 from random import Random
 from statistics import mean
@@ -83,3 +86,30 @@ def test_persuasive_explanation_does_not_rescue_a_wrong_amount(env: AuditEnv) ->
     }
     reward, report = _submit(env, seed, config, [wrong])
     assert (reward, report["tp"], report["fp"], report["fn"]) == (-1.0, 0, 1, 1)
+
+
+@pytest.mark.parametrize(
+    "line",
+    [
+        '{"cmd": "reset", "seed": Infinity, "config": {}}',
+        '{"cmd": "reset", "seed": 1.5}',
+        '{"cmd": "reset", "seed": true}',
+        '{"cmd": "reset", "seed": "7"}',
+        '{"cmd": "score", "submission": {}, "inspection_steps": 1e999}',
+        "[]",
+        "null",
+        "not json",
+    ],
+)
+def test_hostile_request_gets_an_error_and_the_evaluator_survives(line: str) -> None:
+    proc = subprocess.run(
+        [sys.executable, "-m", "ledgerforge.evaluation.service", "train"],
+        input=line + '\n{"cmd": "report"}\n',
+        capture_output=True,
+        text=True,
+        timeout=30,
+        check=False,
+    )
+    replies = [json.loads(r) for r in proc.stdout.splitlines()]
+    assert len(replies) == 2 and "error" in replies[0], proc.stderr
+    assert replies[1] == {"reports": []}
