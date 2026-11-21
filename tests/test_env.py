@@ -169,3 +169,10 @@ def test_get_document_distinguishes_known_and_unknown_ids(env):
     assert obs["result"] == initial["manifest"]
     obs, *_ = env.step({"tool": "get_document", "args": {"doc_id": "nope"}})
     assert obs["error"]["code"] == "not_found"
+
+
+def test_wrong_config_type_is_an_error_not_a_dead_evaluator(env):
+    with pytest.raises(RuntimeError, match="evaluator: .*interaction"):
+        env.reset(1, {"interactions": ["fx_with_period"]})
+    obs, _ = env.reset(1)  # the same evaluator process still serves episodes
+    assert obs["steps_remaining"] == MAX_STEPS

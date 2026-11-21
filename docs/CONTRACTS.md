@@ -118,7 +118,7 @@ One scored submission per episode. Truth stays in the evaluator process.
 
 | Contract | Where | Form |
 |---|---|---|
-| ScenarioConfig | `contracts/schemas.py` | frozen dataclass, `from_dict` rejects unknown keys, `validate()` |
+| ScenarioConfig | `contracts/schemas.py` | frozen dataclass, `from_dict` rejects unknown keys and wrong value types (`ValueError`; the evaluator answers with an error and keeps serving), `validate()` |
 | FinancialWorld | `sim/world.py::World` | internal, mutable during generation, never exported |
 | FaultResult | `sim/faults.py` | dict `{type, affected_ids, expected_amount_minor, currency, allowed_evidence_sets, provenance}` |
 | EvidenceCertificate | `verification/auditor.py::AuditResult` | auditor issue `{type, affected_ids, amount_minor, currency, evidence_ids}` derived from public data only |
