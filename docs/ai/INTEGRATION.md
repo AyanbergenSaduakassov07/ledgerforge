@@ -66,3 +66,8 @@ Commands: `make verify` → ruff clean, pytest all passed (count in commit messa
 ## cl-07 generator 0.2.0 (ADR-015)
 - Allocation faults now target foreign-currency payments too; fixed the latent units bug (moved amount drawn from the base-currency AP row).
 - Episodes regenerated; benchmark: reconciler dev F1 1.000, train 0.980, mirror 0.983 (3 FN, 0 FP). Reconciler test now asserts 0 FP and tolerates FN only on allocation faults.
+
+## cl-08 generator 0.3.0 (ADR-016)
+- Ledger size scales with difficulty (226–1638 rows over the open episodes).
+- Removed the reconciler's foreign-payment skip in `agents/reconciler.py` (Codex-owned; three-line deletion, no other change). Reconciler test restored to exact (tp, 0, 0).
+- Benchmark: reconciler F1 1.000 on train/dev/mirror, reward 0.950–0.956.

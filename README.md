@@ -125,16 +125,16 @@ committed `outputs/benchmarks/summary.md`. Raw per-episode data is in `metrics.j
 | Policy | dev F1 | dev reward | mirror (20) F1 | mirror reward | steps |
 |---|---:|---:|---:|---:|---:|
 | Oracle (upper bound) | 1.000 | 1.000 | 1.000 | 1.000 | 0 |
-| Reconciler (rule-based) | 1.000 | 0.967 | 0.983 | 0.934 | ≈16 |
+| Reconciler (rule-based) | 1.000 | 0.955 | 1.000 | 0.950 | ≈22–25 |
 | Random explorer | 0.200 | −0.603 | 0.250 | −0.504 | 8 |
 | Flag-all attacker | 0.000 | −1.000 | 0.000 | −1.000 | 2 |
 
 **How to read this:**
-- The reconciler's near-perfect F1 is expected and is not evidence of general audit ability. It was
+- The reconciler's perfect F1 is expected and is not evidence of general audit ability. It was
   written against the same published rules (CONTRACTS §1–3) that the generator and auditor follow,
-  and it can read every row within 16 of its 100 steps. It never raises a false positive. Its only
-  misses (3 on train + mirror, 0 on dev) are allocation faults on foreign-currency payments, which it
-  skips by design (ADR-015, `outputs/reports/failure_analysis.md`).
+  and it can read every row within about 25 of its 100 steps. It shows that every label can be
+  derived from public data, which is what the acceptance gate promises. Larger ledgers (ADR-016)
+  cost it steps, not accuracy.
 - The open challenge is for learned or LLM agents that do not have these rules hard-coded.
 - The random explorer scores F1 > 0 only on clean episodes, where an empty submission is correct.
 - The mirror split is the local closed-eval mirror (≥5 clean, ≥5 interacting). Its 20 paired
@@ -195,10 +195,10 @@ other projects. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). License: M
 
 - Each issue has exactly one minimal evidence set (ADR-006), so alternative valid proofs are not
   credited.
-- Ledgers are roughly 250–600 rows: inside the 200–2000 range, but far from the upper bound.
+- Ledger size scales with difficulty (≈200 / 400 / 800 / 1600 rows); the extra rows at higher levels are routine bank-fee journals, not new look-alikes (ADR-016).
 - The agent and the evaluator run as the same OS user. Isolation is a process boundary, not a
   sandbox ([docs/SECURITY.md](docs/SECURITY.md)).
-- A rule-based policy that encodes the published rules nearly saturates the benchmark (F1 0.98–1.0).
+- A rule-based policy that encodes the published rules saturates the benchmark (F1 1.0).
   Harder look-alikes, or making ledgers less complete within the step budget, would be the next lever.
 - Synthetic books follow one AP-centric chart of accounts and do not cover revenue, payroll or tax.
 

@@ -111,3 +111,8 @@ USD_ANCHOR = {
     "JPY": 151.0,
     "KWD": 0.307,
 }
+
+# Line items per invoice grow with difficulty (bigger ledgers); capped by the smallest catalog (6).
+MAX_LINE_ITEMS = {"basic": 3, "intermediate": 4, "advanced": 5, "expert": 6}
+# Bank-fee filler tops each ledger up to this size (gate maximum is 2000 rows).
+TARGET_LEDGER_ROWS = {"basic": 200, "intermediate": 400, "advanced": 800, "expert": 1600}

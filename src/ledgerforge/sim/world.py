@@ -312,7 +312,8 @@ def make_invoice(
         po = f"PO-{r.randint(1000, 9999)}"
         exp = CURRENCY_EXPONENTS[vendor["currency"]]
         for desc, account, (lo, hi) in r.sample(
-            profiles.CATALOG[w.config.industry], r.randint(1, 3)
+            profiles.CATALOG[w.config.industry],
+            r.randint(1, profiles.MAX_LINE_ITEMS[w.config.difficulty]),
         ):
             qty = r.randint(1, 3) if hi > 5000 else r.randint(1, 20)
             unit = round(r.uniform(lo, hi) * profiles.USD_ANCHOR[vendor["currency"]], 2)
@@ -569,7 +570,9 @@ def _background(w: World, r: random.Random) -> None:
         w.post_manual(
             r, w.local_dt(last, 20 * 3600), ACC_DEPRECIATION, ACC_ACCUM_DEPR, depr, f"man:depr:{m}"
         )
-    target = MIN_LEDGER_ROWS + r.randint(0, 40)
+    target = max(MIN_LEDGER_ROWS, profiles.TARGET_LEDGER_ROWS[w.config.difficulty]) + r.randint(
+        0, 40
+    )
     n = 0
     while len(w.ledger()) < target:
         fee = int(r.uniform(5, 60) * profiles.USD_ANCHOR[w.base]) * unit

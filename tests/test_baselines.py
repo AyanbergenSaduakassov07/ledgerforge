@@ -72,12 +72,7 @@ def test_reconciler_checks_public_evidence_with_no_false_positives(
     expected = sum(config.get("faults", {}).values()) + 2 * sum(
         config.get("interactions", {}).values()
     )
-    assert report["fp"] == 0 and report["tp"] + report["fn"] == expected
-    # Known blind spot (reconciler shortcut): allocation faults on foreign payments (ADR-015).
-    allocation = config.get("faults", {}).get("payment_allocation", 0) + sum(
-        config.get("interactions", {}).values()
-    )
-    assert report["fn"] <= allocation
+    assert (report["tp"], report["fp"], report["fn"]) == (expected, 0, 0)
 
 
 def test_baseline_imports_stay_on_the_agent_side() -> None:
