@@ -8,7 +8,8 @@ import pytest
 from jsonschema import Draft202012Validator
 
 from ledgerforge.agents.oracle import OraclePolicy
-from ledgerforge.contracts.schemas import ScenarioConfig
+from ledgerforge.contracts.money import convert
+from ledgerforge.contracts.schemas import CURRENCY_EXPONENTS, ScenarioConfig
 from ledgerforge.contracts.submission import MalformedSubmission, validate_submission
 from ledgerforge.sim.episode import generate_episode
 
@@ -49,6 +50,21 @@ def test_public_tables_match_schemas(episode):
         for row in getattr(public, table):
             v.validate(row)
     assert public.manifest["counts"]["ledger"] == len(public.ledger)
+
+
+def test_manifest_lists_exponents_of_every_episode_currency(episode):
+    public, _ = episode
+    used = {public.manifest["base_currency"]}
+    used |= {d["currency"] for d in public.invoices + public.payments}
+    used |= {r[k] for r in public.fx for k in ("source_currency", "target_currency")}
+    assert public.manifest["currency_exponents"] == {c: CURRENCY_EXPONENTS[c] for c in sorted(used)}
+    assert len(used) > 1  # the fixture episode has foreign-currency documents
+
+
+def test_convert_uses_manifest_exponents():
+    assert convert(150, "JPY", "KZT", "3.5") == 52500
+    assert convert(150, "JPY", "KZT", "3.5", {"JPY": 0, "KZT": 2}) == 52500
+    assert convert(150, "JPY", "KZT", "3.5", {"JPY": 0, "KZT": 0}) == 525
 
 
 def test_truth_and_oracle_submission_match_schemas(episode):

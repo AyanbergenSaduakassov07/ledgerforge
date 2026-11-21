@@ -9,7 +9,7 @@ checks: `tests/test_contracts.py`, `tests/test_matcher.py`, `tests/test_env.py`.
 
 | Rule | Value |
 |---|---|
-| Amounts | integers in minor units; exponents KZT/USD/EUR/RUB/CNY 2, JPY 0, KWD 3 |
+| Amounts | integers in minor units; exponents KZT/USD/EUR/RUB/CNY 2, JPY 0, KWD 3, published per episode in `manifest.currency_exponents` |
 | Ledger currency | every ledger row is in `base_currency` (functional currency); native amounts live on documents |
 | Rate | decimal string, target units per **one** source unit; `fx.csv` holds business days, period ±21 days |
 | Conversion | `round_half_even(amount_minor × rate × 10^(exp_target − exp_source))` |
@@ -23,6 +23,11 @@ checks: `tests/test_contracts.py`, `tests/test_matcher.py`, `tests/test_env.py`.
 `manifest.json`, `policy.json`, `ledger.csv`, `invoices.jsonl`, `payments.jsonl`, `fx.csv`. Schemas:
 `schemas/{manifest,ledger_row,invoice,payment,fx_row}.schema.json`. Missing references are explicit
 nulls (JSON `null`; in CSV an empty field).
+
+- `manifest.json`: `schema_version, generator_version, episode_id, base_currency,
+  currency_exponents, period_start, period_end, timezone, counts, rounding`.
+  `currency_exponents` maps every currency that appears in the episode (base, documents, fx) to
+  its minor-unit exponent, e.g. `{"JPY": 0, "KZT": 2, "USD": 2}` (generator ≥ 0.4.0).
 
 - `ledger.csv`: `row_id, timestamp, account, debit_minor, credit_minor, currency, entity_id, invoice_id, payment_id`.
   Exactly one of debit/credit is non-zero.
