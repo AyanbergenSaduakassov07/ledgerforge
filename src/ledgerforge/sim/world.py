@@ -38,6 +38,7 @@ from ledgerforge.contracts.schemas import (
     ScenarioConfig,
 )
 from ledgerforge.sim import profiles
+from ledgerforge.sim.secret import keyed
 
 FOREIGN_POOL = ("USD", "EUR", "CNY", "RUB", "JPY", "KWD")
 MIN_LEDGER_ROWS = 200
@@ -66,7 +67,9 @@ class World:
 
     def rng(self, phase: str) -> random.Random:
         # str seeds hash with SHA-512: identical across processes and PYTHONHASHSEED values.
-        return random.Random(f"ledgerforge:{self.seed}:{self.attempt}:{phase}")
+        # keyed() mixes in LEDGERFORGE_SECRET via HMAC-SHA256 (no-op without a key), so every
+        # stream - including the one that draws episode_id - is unreachable from the seed alone.
+        return random.Random(keyed(f"ledgerforge:{self.seed}:{self.attempt}:{phase}"))
 
     # --- ids and time ------------------------------------------------------------------------
     def new_id(self, r: random.Random, prefix: str, digits: int = 6) -> str:

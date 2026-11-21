@@ -26,6 +26,10 @@ generation failure, not a scoring risk.
 **Isolation (ADR-010).** Truth lives in a separate evaluator process that speaks JSON lines. The
 environment process holds only public data, and eval mode returns no reward until the run report.
 Baselines may import only `contracts/`; a test enforces this in a fresh interpreter.
+For closed grading the jury sets `LEDGERFORGE_SECRET` on the evaluator side
+(`docker run -e LEDGERFORGE_SECRET=... --network none ledgerforge`). The key enters every RNG
+stream, the id salt and `episode_id` through HMAC-SHA256, so the open generator cannot recover the
+seed from `episode_id` or rebuild the episode. Without the key the open episodes are unchanged.
 
 **Reward.** `clip(2·F1 − 1 − 0.002·steps, −1, 1)` with one-to-one matching. A true positive needs:
 - the right type;

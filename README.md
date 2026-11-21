@@ -47,6 +47,17 @@ docker run --rm --network none ledgerforge
 
 The container command runs the test suite and replay demo with networking disabled.
 
+For a closed evaluation, the jury sets a private generator key. The evaluator mixes it into every
+random stream and the episode id with HMAC-SHA256, so the open generator and a guessed seed can no
+longer rebuild the private truth. Without the key, open train and dev episodes stay byte-identical.
+
+```bash
+docker run --rm --network none -e LEDGERFORGE_SECRET="<jury-only key>" ledgerforge
+```
+
+Only the evaluator side (`sim/`, `evaluation/`) reads `LEDGERFORGE_SECRET`; `env/` and `agents/`
+never import it. In eval mode without a key, the evaluator prints a warning to stderr.
+
 ## Web workspace
 
 ```bash
