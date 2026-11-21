@@ -296,7 +296,10 @@ interactions. The four baselines share the same case recipes and scoring rules.
 The reconciler found **71 true positives, zero false positives, and zero false negatives** across
 the 40 cases. It averaged between 22.20 and 25.05 inspections across the three splits. This result
 measures how well a policy that already encodes the published rules can recover the labels. The
-random explorer's nonzero mean F1 comes from clean episodes.
+random explorer's nonzero mean F1 comes from clean episodes. On a clean episode an empty
+submission has F1 1 but precision and recall 0 (spec section 05), so the mean precision and recall
+in `outputs/benchmarks/summary.md` stay below 1 even for the oracle (0.800 on train and dev, 0.750
+on the mirror).
 
 [Summary](outputs/benchmarks/summary.md) · [Per-episode metrics](outputs/benchmarks/metrics.json) ·
 [Public trajectories](outputs/benchmarks/trajectories.jsonl) ·
