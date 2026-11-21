@@ -51,6 +51,6 @@ recall, F1, reward, steps, runtime. Acceptance: rerun gives identical numbers (e
 local closed-eval mirror 20 episodes (≥5 clean, ≥5 interacting) + 20 paired id/order transforms.
 Review: Claude checks numbers come from raw outputs.
 
-### CX-05 Failure analysis — todo
+### CX-05 Failure analysis — done
 Files: `outputs/reports/failure_analysis.md`, `benchmark/analyze.py`. Deps: CX-04.
 Categorise reconciler FP/FN by fault type and cause. Measured only.

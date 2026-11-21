@@ -62,3 +62,7 @@ Commands: `make verify` → ruff clean, pytest all passed (count in commit messa
 - Claude Opus approved the analyzer. The review follow-ups added the persistent regression example and the missing-terminal diagnostic.
 - `uv run ledgerforge demo --count 3 --out /private/tmp/ledgerforge-codex.ELz8P7/final-demo.jsonl` returned reward 1.000 and identical replay for all three episodes.
 - After `git rebase main`, `make lint test && uv run pytest -o addopts='' -q` passed with clean Ruff checks and 160 passing tests.
+
+## cl-07 generator 0.2.0 (ADR-015)
+- Allocation faults now target foreign-currency payments too; fixed the latent units bug (moved amount drawn from the base-currency AP row).
+- Episodes regenerated; benchmark: reconciler dev F1 1.000, train 0.980, mirror 0.983 (3 FN, 0 FP). Reconciler test now asserts 0 FP and tolerates FN only on allocation faults.

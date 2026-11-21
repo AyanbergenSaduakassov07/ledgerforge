@@ -125,21 +125,24 @@ def payment_allocation(
     invoice_id: str | None = None,
     target_doc: str | None = None,
 ) -> dict[str, Any]:
-    """F2: remittance says invoice I, the ledger allocates part/all of it elsewhere."""
+    """F2: remittance says invoice I, the ledger allocates part/all of it elsewhere.
+
+    Any payment currency: the moved amount is drawn from the base-currency AP relief row, so a
+    foreign payment's misallocation is still a base-currency ledger impact (ADR-015).
+    """
     candidates = (
         [payment]
         if payment
         else [
             p
             for p in w.payments
-            if p["currency"] == w.base
-            and p["invoice_refs"]
+            if p["invoice_refs"]
             and p["amount_minor"] == sum(x["amount_minor"] for x in p["invoice_refs"])
             and "faulted" not in w.meta[p["doc_id"]]["tags"]
         ]
     )
     if not candidates:
-        raise NoCandidate("no base-currency payment with remittance references")
+        raise NoCandidate("no fully allocated payment with remittance references")
     pay = r.choice(candidates)
     ref = (
         next(x for x in pay["invoice_refs"] if x["invoice_id"] == invoice_id)
@@ -155,19 +158,21 @@ def payment_allocation(
         others = [
             i
             for i in _eligible(w, {"duplicate"})
-            if i["entity_id"] == entity and i["currency"] == w.base and i["invoice_id"] not in refs
+            if i["entity_id"] == entity
+            and i["currency"] == pay["currency"]
+            and i["invoice_id"] not in refs
         ]
         target = r.choice(others) if variant == "misapplied" and others else None
         if variant == "misapplied" and target is None:
             variant = "partial"
-    a = ref["amount_minor"]
-    x = a if variant == "missing" else r.randint(max(1, a * 15 // 100), max(1, a * 85 // 100))
     journal = w.journals[f"pay:{pay['doc_id']}"]
     ap_row = next(
         row
         for row in journal["lines"]
         if row["account"] == ACC_AP and row["invoice_id"] == ref["invoice_id"]
     )
+    a = ap_row["debit_minor"]  # base currency; equals the remittance for base-currency payments
+    x = a if variant == "missing" else r.randint(max(1, a * 15 // 100), max(1, a * 85 // 100))
     before = dict(ap_row)
     ap_row["debit_minor"] -= x
     if ap_row["debit_minor"] == 0:
