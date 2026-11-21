@@ -44,7 +44,7 @@ Acceptance: flag-all mean reward < 0 over 10 faulted + 5 clean seeds; shuffled-f
 submissions give identical reward (property test over 20 permutations); submissions with
 persuasive explanations but wrong amount get FP. Review: Claude.
 
-### CX-04 Benchmark runner — in progress (Codex)
+### CX-04 Benchmark runner — done (agent/cx-04, merged)
 Files: `benchmark/run.py`, `cli.py bench`, `outputs/benchmarks/`. Deps: CX-02, CL-02.
 Out: per policy × split JSON + trajectories.jsonl (spec §12 fields) + markdown table of precision,
 recall, F1, reward, steps, runtime. Acceptance: rerun gives identical numbers (except runtime);
