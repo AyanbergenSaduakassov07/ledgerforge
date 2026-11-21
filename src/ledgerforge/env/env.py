@@ -14,6 +14,7 @@ import time
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import suppress
+from copy import deepcopy
 from typing import Any
 
 from ledgerforge.contracts.schemas import (
@@ -137,8 +138,8 @@ class AuditEnv:
         m = self._data["manifest"]
         obs = {
             "task": TASK,
-            "manifest": m,
-            "policy": self._data["policy"],
+            "manifest": deepcopy(m),
+            "policy": deepcopy(self._data["policy"]),
             "tables": {t: {"key": TABLE_KEYS[t], "rows": len(self._data[t])} for t in TABLES},
             "actions": list(TOOLS),
             "steps_remaining": MAX_STEPS,
@@ -191,7 +192,7 @@ class AuditEnv:
         if error:
             obs["error"] = {"code": error[0], "message": error[1]}
         else:
-            obs["result"] = result
+            obs["result"] = deepcopy(result)
         return obs
 
     # --- tools -------------------------------------------------------------------------------

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
@@ -26,8 +27,8 @@ def run_episode(
                 "config": config,
                 "policy": policy.name,
                 "step": step,
-                "action": action,
-                "observation": obs,
+                "action": deepcopy(action),
+                "observation": deepcopy(obs),
                 "reward": reward,
                 "terminated": terminated,
                 "truncated": truncated,

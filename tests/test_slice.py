@@ -3,6 +3,7 @@
 import json
 import subprocess
 import sys
+from typing import Any
 
 from conftest import DUP
 from ledgerforge.agents.oracle import OraclePolicy
@@ -54,6 +55,27 @@ def test_trajectory_replays_identically(env, tmp_path):
     write_jsonl(path, records)
     logged = read_jsonl(path)
     assert replay(env, logged) == logged
+
+
+def test_trajectory_survives_policy_edits_to_prior_observation_and_action(env) -> None:
+    _, truth = generate_episode(7, ScenarioConfig.from_dict(DUP))
+
+    class AnnotatingPolicy(OraclePolicy):
+        def reset(self, observation: dict[str, Any]) -> None:
+            super().reset(observation)
+            self.request = {"tool": "list_records", "args": {"table": "invoices", "limit": 1}}
+
+        def act(self, observation: dict[str, Any]) -> dict[str, Any]:
+            if "result" not in observation:
+                return self.request
+            row = observation["result"]["rows"][0]
+            row["line_items"][0]["description"] += " (display annotation)"
+            self.request["args"]["limit"] = 2
+            return super().act(observation)
+
+    records = run_episode(env, AnnotatingPolicy(truth), 7, DUP)
+    assert records[0]["action"]["args"]["limit"] == 1
+    assert replay(env, records) == records
 
 
 def test_agent_process_never_receives_truth(env):
