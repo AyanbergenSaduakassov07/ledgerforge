@@ -112,7 +112,7 @@ an allowed set. One-to-one maximum matching (Kuhn), deterministic order. Repeats
 
 JSON lines over stdin/stdout of `python -m ledgerforge.evaluation.service <train|eval>`:
 `reset → {public}`, `score → {reward, report}` (train) or `{accepted}` (eval), `report → {reports}`.
-One scored submission per episode. Truth stays in the evaluator process.
+One scored submission per episode. Truth stays in the evaluator process. Every request must be a JSON object; `seed` and `inspection_steps` must be JSON integers. Anything else gets `{error}` and the process keeps serving.
 
 ## 8. Python-side shapes
 

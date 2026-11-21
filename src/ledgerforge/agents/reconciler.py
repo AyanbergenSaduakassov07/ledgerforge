@@ -47,6 +47,7 @@ class ReconcilerPolicy:
         self._tables = iter(TABLES)
         self._table: str | None = None
         self._rows: dict[str, list[dict[str, Any]]] = {table: [] for table in TABLES}
+        self._fx_table: FxTable | None = None  # built once all fx pages are read
 
     def act(self, observation: dict[str, Any]) -> dict[str, Any]:
         cursor = None
@@ -95,7 +96,7 @@ class ReconcilerPolicy:
     def _invoice_findings(
         self, invoices: dict[str, dict[str, Any]], postings: dict[str, dict[str, Any]]
     ) -> Iterator[dict[str, Any]]:
-        fx = FxTable(self._rows["fx"])
+        fx = self._fx()
         for invoice_id, invoice in invoices.items():
             row = postings[invoice_id]
             docs = [invoice["doc_id"]]
@@ -213,8 +214,15 @@ class ReconcilerPolicy:
         if payment["currency"] == self._base:
             return amount
         day = local_date(payment["timestamp"], self._timezone)
-        rate = FxTable(self._rows["fx"]).effective(payment["currency"], self._base, day)
-        return convert(amount, payment["currency"], self._base, rate[1]) if rate else amount
+        rate = self._fx().effective(payment["currency"], self._base, day)
+        if rate is None:  # the generator always publishes a covering rate; fail loudly if not
+            raise ValueError(f"no FX rate for {payment['currency']} on or before {day}")
+        return convert(amount, payment["currency"], self._base, rate[1])
+
+    def _fx(self) -> FxTable:
+        if self._fx_table is None:
+            self._fx_table = FxTable(self._rows["fx"])
+        return self._fx_table
 
     def _finding(
         self, kind: str, docs: list[str], amount: int, rows: list[str], explanation: str

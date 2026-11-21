@@ -14,7 +14,7 @@ from statistics import fmean
 from typing import Any
 
 from ledgerforge.agents.reconciler import NAIVE_RULES, ReconcilerPolicy
-from ledgerforge.benchmark.run import _mirror_cases
+from ledgerforge.benchmark.run import mirror_cases
 from ledgerforge.benchmark.trajectory import run_episode
 from ledgerforge.env.env import AuditEnv
 
@@ -34,9 +34,10 @@ def run_ablation(cases: list[dict[str, Any]]) -> dict[str, dict[str, float]]:
         for naive in VARIANTS:
             policy = ReconcilerPolicy(naive)
             reports = [
-                run_episode(env, policy, case["seed"], case["config"])[-1]["report"]
-                for case in cases
-            ]
+                run_episode(env, policy, c["seed"], c["config"])[-1]["report"] for c in cases
+            ]  # noqa: E501
+            if any(r is None for r in reports):
+                raise RuntimeError(f"{policy.name}: an episode ended without a score report")
             row = {f: float(sum(r[f] for r in reports)) for f in _FIELDS}
             row.update({m: fmean(r[m] for r in reports) for m in ("f1", "reward")})
             results[policy.name] = row
@@ -71,7 +72,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     plan = json.loads(args.splits.read_text(encoding="utf-8"))
-    cases = [*plan["train"], *plan["dev"], *_mirror_cases()]
+    cases = [*plan["train"], *plan["dev"], *mirror_cases()]
     text = to_markdown(run_ablation(cases), len(cases))
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(text, encoding="utf-8")
