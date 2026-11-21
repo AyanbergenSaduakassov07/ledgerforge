@@ -23,7 +23,10 @@ bench:
 	uv run ledgerforge bench
 	uv run python -m ledgerforge.benchmark.analyze
 
-figures: uv run python -m ledgerforge.benchmark.figures  ablation:
+figures:
+	uv run python -m ledgerforge.benchmark.figures
+
+ablation:
 	uv run python -m ledgerforge.benchmark.ablation
 
 clean:
