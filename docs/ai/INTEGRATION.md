@@ -53,3 +53,12 @@ Commands: `make verify` → ruff clean, pytest all passed (count in commit messa
 - Reviewed `benchmark/run.py`: truth only reaches OraclePolicy on the trusted runner side; mirror policies run in eval mode.
 - `make verify` exit 0. `uv run ledgerforge bench` exit 0. Rerun gives identical precision, recall, F1, reward and steps (runtime differs), and `trajectories.jsonl` is byte-identical.
 - Finding: the reconciler reaches F1 1.000 on train, dev and mirror. This is documented in the README as rule saturation, not general ability.
+## 2026-11-21 — CX-05 (Codex, agent/cx-05)
+
+- `uv run python -m ledgerforge.benchmark.analyze --benchmark /private/tmp/ledgerforge-codex.ELz8P7/run-a --out /private/tmp/ledgerforge-codex.ELz8P7/failure-analysis-red.md` initially failed because the analyzer module was absent.
+- `uv run python -m ledgerforge.benchmark.analyze` reproduced all 40 scores from the committed benchmark. The report recorded 71 true positives, zero false positives, and zero false negatives.
+- `uv run python -m doctest -v src/ledgerforge/benchmark/analyze.py` passed seven checks for a finding outside the amount tolerance.
+- `uv run python /private/tmp/ledgerforge-codex.ELz8P7/check_analysis.py outputs/benchmarks outputs/reports/failure_analysis.md /private/tmp/ledgerforge-codex.ELz8P7` confirmed a byte-identical report, the controlled false positive and false negative, and rejection of inconsistent metrics and missing terminals. The missing-terminal diagnostic check failed before its fix.
+- Claude Opus approved the analyzer. The review follow-ups added the persistent regression example and the missing-terminal diagnostic.
+- `uv run ledgerforge demo --count 3 --out /private/tmp/ledgerforge-codex.ELz8P7/final-demo.jsonl` returned reward 1.000 and identical replay for all three episodes.
+- After `git rebase main`, `make lint test && uv run pytest -o addopts='' -q` passed with clean Ruff checks and 160 passing tests.
