@@ -19,6 +19,7 @@ from typing import Any
 from ledgerforge.contracts.schemas import ScenarioConfig
 from ledgerforge.evaluation.matcher import score
 from ledgerforge.sim.episode import GenerationFailed, generate_episode
+from ledgerforge.sim.secret import SECRET_ENV, secret_key
 
 MODES = ("train", "eval")
 
@@ -28,6 +29,13 @@ class Evaluator:
         if mode not in MODES:
             raise ValueError(f"mode must be one of {MODES}")
         self.mode = mode
+        if mode == "eval" and not secret_key():
+            # stderr is the operator's console; it never reaches agent observations.
+            print(
+                f"ledgerforge: WARNING: eval mode without {SECRET_ENV}; episodes are "
+                "reproducible from the open generator and the seed",
+                file=sys.stderr,
+            )
         self.reports: list[dict[str, Any]] = []
         self._truth = None
         self._aliases: dict[str, str] = {}
