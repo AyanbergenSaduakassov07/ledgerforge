@@ -48,3 +48,13 @@ Commands: `make verify` → ruff clean, pytest all passed (count in commit messa
 - `uv run python /private/tmp/ledgerforge-codex.ELz8P7/check_benchmark.py /private/tmp/ledgerforge-codex.ELz8P7/run-b /private/tmp/ledgerforge-codex.ELz8P7/run-d` verified 120 public trajectories, zero agent-visible rewards in mirror mode, 20 passing paired checks, identical trajectory bytes, and identical metrics excluding runtime.
 - Claude Opus approved the runner and raw-output accounting. The Markdown table reports inspection steps as specified. Oracle actions stayed in memory and out of the public trajectory file.
 - `make lint test && uv run pytest -o addopts='' -q` passed after rebasing onto main and applying the review note. Ruff was clean and all 159 tests passed.
+
+## 2026-11-21 — CX-05 (Codex, agent/cx-05)
+
+- `uv run python -m ledgerforge.benchmark.analyze --benchmark /private/tmp/ledgerforge-codex.ELz8P7/run-a --out /private/tmp/ledgerforge-codex.ELz8P7/failure-analysis-red.md` initially failed because the analyzer module was absent.
+- `uv run python -m ledgerforge.benchmark.analyze` reproduced all 40 scores from the committed benchmark. The report recorded 71 true positives, zero false positives, and zero false negatives.
+- `uv run python -m doctest -v src/ledgerforge/benchmark/analyze.py` passed seven checks for a finding outside the amount tolerance.
+- `uv run python /private/tmp/ledgerforge-codex.ELz8P7/check_analysis.py outputs/benchmarks outputs/reports/failure_analysis.md /private/tmp/ledgerforge-codex.ELz8P7` confirmed a byte-identical report, the controlled false positive and false negative, and rejection of inconsistent metrics and missing terminals. The missing-terminal diagnostic check failed before its fix.
+- Claude Opus approved the analyzer. The review follow-ups added the persistent regression example and the missing-terminal diagnostic.
+- `uv run ledgerforge demo --count 3 --out /private/tmp/ledgerforge-codex.ELz8P7/final-demo.jsonl` returned reward 1.000 and identical replay for all three episodes.
+- After `git rebase main`, `make lint test && uv run pytest -o addopts='' -q` passed with clean Ruff checks and 160 passing tests.
