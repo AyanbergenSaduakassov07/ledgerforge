@@ -1,4 +1,4 @@
-.PHONY: install lint test demo verify clean
+.PHONY: install lint test demo verify walkthrough clean
 
 install:
 	uv sync --frozen
@@ -15,6 +15,9 @@ demo:
 
 # One command for judges: offline, no API keys, no GPU.
 verify: install lint test demo
+
+walkthrough:
+	uv run python -m ledgerforge.walkthrough
 
 clean:
 	rm -rf outputs/trajectories/*.jsonl episodes/generated private/generated .pytest_cache .ruff_cache
