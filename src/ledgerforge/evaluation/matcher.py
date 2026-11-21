@@ -94,8 +94,9 @@ def score(
     tp = len(matched)
     fp, fn = len(findings) - tp, len(truth) - tp
     f1 = 1.0 if not findings and not truth else 2 * tp / (2 * tp + fp + fn)
-    precision = tp / len(findings) if findings else float(not truth)
-    recall = tp / len(truth) if truth else 1.0
+    # Spec section 05: a zero denominator gives P or R = 0 (F1 alone covers the empty/empty case).
+    precision = tp / len(findings) if findings else 0.0
+    recall = tp / len(truth) if truth else 0.0
     return ScoreReport(
         episode_id,
         True,
