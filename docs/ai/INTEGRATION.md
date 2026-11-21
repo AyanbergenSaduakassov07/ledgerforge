@@ -40,3 +40,11 @@ Commands: `make verify` → ruff clean, pytest all passed (count in commit messa
 ## 2026-11-21 — merged agent/cx-03 (contains cx-02) into main (Claude)
 - Reviewed: baselines (flag_all, random_explorer, reconciler) import only `contracts.*`; no truth, evaluator or auditor imports.
 - On main: ruff clean; `uv run pytest` 159 passed, 0 failed (3.3 s).
+
+## 2026-11-21 — CX-04 (Codex, agent/cx-04)
+
+- `uv run ledgerforge bench --out /private/tmp/ledgerforge-codex.ELz8P7/red` initially exited 2 because the command was absent.
+- `uv run ledgerforge bench --out /private/tmp/ledgerforge-codex.ELz8P7/run-d` completed 160 policy runs on 10 train, 10 dev, and 20 mirror cases. All 20 combined ID and order transformations passed. The committed outputs are from this run.
+- `uv run python /private/tmp/ledgerforge-codex.ELz8P7/check_benchmark.py /private/tmp/ledgerforge-codex.ELz8P7/run-b /private/tmp/ledgerforge-codex.ELz8P7/run-d` verified 120 public trajectories, zero agent-visible rewards in mirror mode, 20 passing paired checks, identical trajectory bytes, and identical metrics excluding runtime.
+- Claude Opus approved the runner and raw-output accounting. The Markdown table reports inspection steps as specified. Oracle actions stayed in memory and out of the public trajectory file.
+- `make lint test && uv run pytest -o addopts='' -q` passed after rebasing onto main and applying the review note. Ruff was clean and all 159 tests passed.

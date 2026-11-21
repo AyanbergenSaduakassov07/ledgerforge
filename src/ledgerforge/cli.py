@@ -1,4 +1,4 @@
-"""ledgerforge CLI: generate episodes, audit public files, run the scripted demo."""
+"""LedgerForge CLI for episode generation, public audits, demos and benchmarks."""
 
 from __future__ import annotations
 
@@ -87,6 +87,14 @@ def cmd_demo(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_bench(a: argparse.Namespace) -> int:
+    from ledgerforge.benchmark.run import run_benchmark
+
+    passed = run_benchmark(Path(a.splits), Path(a.out))
+    log.info("benchmark reports -> %s", a.out)
+    return 0 if passed else 1
+
+
 def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     p = argparse.ArgumentParser(prog="ledgerforge")
@@ -112,6 +120,10 @@ def main(argv: list[str] | None = None) -> int:
     d.add_argument("--config")
     d.add_argument("--out", default="outputs/trajectories/demo.jsonl")
     d.set_defaults(fn=cmd_demo)
+    bench = sub.add_parser("bench", help="evaluate baseline policies and check metamorphic pairs")
+    bench.add_argument("--splits", default="episodes/splits.json")
+    bench.add_argument("--out", default="outputs/benchmarks")
+    bench.set_defaults(fn=cmd_bench)
     a = p.parse_args(argv)
     return a.fn(a)
 

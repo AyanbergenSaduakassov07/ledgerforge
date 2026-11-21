@@ -1,0 +1,3207 @@
+{
+  "schema_version": "1.0.0",
+  "generator_version": "0.1.0",
+  "cases": {
+    "train": [
+      {
+        "seed": 1000,
+        "config": {}
+      },
+      {
+        "seed": 1001,
+        "config": {
+          "industry": "retail_services",
+          "difficulty": "basic"
+        }
+      },
+      {
+        "seed": 1002,
+        "config": {
+          "faults": {
+            "duplicate_invoice": 1
+          }
+        }
+      },
+      {
+        "seed": 1003,
+        "config": {
+          "faults": {
+            "payment_allocation": 2
+          },
+          "industry": "construction"
+        }
+      },
+      {
+        "seed": 1004,
+        "config": {
+          "faults": {
+            "fx_rate": 1
+          },
+          "base_currency": "USD"
+        }
+      },
+      {
+        "seed": 1005,
+        "config": {
+          "faults": {
+            "reporting_period": 1
+          },
+          "industry": "manufacturing"
+        }
+      },
+      {
+        "seed": 1006,
+        "config": {
+          "interactions": {
+            "duplicate_with_allocation": 1
+          }
+        }
+      },
+      {
+        "seed": 1007,
+        "config": {
+          "interactions": {
+            "fx_with_period": 1
+          },
+          "difficulty": "advanced"
+        }
+      },
+      {
+        "seed": 1008,
+        "config": {
+          "faults": {
+            "duplicate_invoice": 1,
+            "payment_allocation": 1,
+            "fx_rate": 1,
+            "reporting_period": 1
+          },
+          "difficulty": "advanced"
+        }
+      },
+      {
+        "seed": 1009,
+        "config": {
+          "faults": {
+            "duplicate_invoice": 2,
+            "payment_allocation": 2,
+            "fx_rate": 1,
+            "reporting_period": 1
+          },
+          "interactions": {
+            "duplicate_with_allocation": 1,
+            "fx_with_period": 1
+          },
+          "difficulty": "expert",
+          "base_currency": "USD"
+        }
+      }
+    ],
+    "dev": [
+      {
+        "seed": 2000,
+        "config": {}
+      },
+      {
+        "seed": 2001,
+        "config": {
+          "industry": "retail_services",
+          "difficulty": "basic"
+        }
+      },
+      {
+        "seed": 2002,
+        "config": {
+          "faults": {
+            "duplicate_invoice": 1
+          }
+        }
+      },
+      {
+        "seed": 2003,
+        "config": {
+          "faults": {
+            "payment_allocation": 2
+          },
+          "industry": "construction"
+        }
+      },
+      {
+        "seed": 2004,
+        "config": {
+          "faults": {
+            "fx_rate": 1
+          },
+          "base_currency": "EUR"
+        }
+      },
+      {
+        "seed": 2005,
+        "config": {
+          "faults": {
+            "reporting_period": 1
+          },
+          "industry": "manufacturing"
+        }
+      },
+      {
+        "seed": 2006,
+        "config": {
+          "interactions": {
+            "duplicate_with_allocation": 1
+          }
+        }
+      },
+      {
+        "seed": 2007,
+        "config": {
+          "interactions": {
+            "fx_with_period": 1
+          },
+          "difficulty": "advanced"
+        }
+      },
+      {
+        "seed": 2008,
+        "config": {
+          "faults": {
+            "duplicate_invoice": 1,
+            "payment_allocation": 1,
+            "fx_rate": 1,
+            "reporting_period": 1
+          },
+          "difficulty": "advanced"
+        }
+      },
+      {
+        "seed": 2009,
+        "config": {
+          "faults": {
+            "duplicate_invoice": 2,
+            "payment_allocation": 2,
+            "fx_rate": 1,
+            "reporting_period": 1
+          },
+          "interactions": {
+            "duplicate_with_allocation": 1,
+            "fx_with_period": 1
+          },
+          "difficulty": "expert",
+          "base_currency": "EUR"
+        }
+      }
+    ],
+    "mirror": [
+      {
+        "seed": 3000,
+        "config": {
+          "industry": "industrial_procurement",
+          "difficulty": "basic",
+          "base_currency": "KZT"
+        }
+      },
+      {
+        "seed": 3001,
+        "config": {
+          "industry": "construction",
+          "difficulty": "intermediate",
+          "base_currency": "USD"
+        }
+      },
+      {
+        "seed": 3002,
+        "config": {
+          "industry": "manufacturing",
+          "difficulty": "advanced",
+          "base_currency": "EUR"
+        }
+      },
+      {
+        "seed": 3003,
+        "config": {
+          "industry": "retail_services",
+          "difficulty": "expert",
+          "base_currency": "KZT"
+        }
+      },
+      {
+        "seed": 3004,
+        "config": {
+          "industry": "industrial_procurement",
+          "difficulty": "basic",
+          "base_currency": "USD"
+        }
+      },
+      {
+        "seed": 3005,
+        "config": {
+          "industry": "construction",
+          "difficulty": "intermediate",
+          "base_currency": "EUR",
+          "interactions": {
+            "fx_with_period": 1
+          }
+        }
+      },
+      {
+        "seed": 3006,
+        "config": {
+          "industry": "manufacturing",
+          "difficulty": "advanced",
+          "base_currency": "KZT",
+          "interactions": {
+            "duplicate_with_allocation": 1
+          }
+        }
+      },
+      {
+        "seed": 3007,
+        "config": {
+          "industry": "retail_services",
+          "difficulty": "expert",
+          "base_currency": "USD",
+          "interactions": {
+            "fx_with_period": 1
+          }
+        }
+      },
+      {
+        "seed": 3008,
+        "config": {
+          "industry": "industrial_procurement",
+          "difficulty": "basic",
+          "base_currency": "EUR",
+          "interactions": {
+            "duplicate_with_allocation": 1
+          }
+        }
+      },
+      {
+        "seed": 3009,
+        "config": {
+          "industry": "construction",
+          "difficulty": "intermediate",
+          "base_currency": "KZT",
+          "interactions": {
+            "fx_with_period": 1
+          }
+        }
+      },
+      {
+        "seed": 3010,
+        "config": {
+          "industry": "manufacturing",
+          "difficulty": "advanced",
+          "base_currency": "USD",
+          "faults": {
+            "fx_rate": 1
+          }
+        }
+      },
+      {
+        "seed": 3011,
+        "config": {
+          "industry": "retail_services",
+          "difficulty": "expert",
+          "base_currency": "EUR",
+          "faults": {
+            "reporting_period": 2
+          }
+        }
+      },
+      {
+        "seed": 3012,
+        "config": {
+          "industry": "industrial_procurement",
+          "difficulty": "basic",
+          "base_currency": "KZT",
+          "faults": {
+            "duplicate_invoice": 1
+          }
+        }
+      },
+      {
+        "seed": 3013,
+        "config": {
+          "industry": "construction",
+          "difficulty": "intermediate",
+          "base_currency": "USD",
+          "faults": {
+            "payment_allocation": 2
+          }
+        }
+      },
+      {
+        "seed": 3014,
+        "config": {
+          "industry": "manufacturing",
+          "difficulty": "advanced",
+          "base_currency": "EUR",
+          "faults": {
+            "fx_rate": 1
+          }
+        }
+      },
+      {
+        "seed": 3015,
+        "config": {
+          "industry": "retail_services",
+          "difficulty": "expert",
+          "base_currency": "KZT",
+          "faults": {
+            "reporting_period": 2
+          }
+        }
+      },
+      {
+        "seed": 3016,
+        "config": {
+          "industry": "industrial_procurement",
+          "difficulty": "basic",
+          "base_currency": "USD",
+          "faults": {
+            "duplicate_invoice": 1
+          }
+        }
+      },
+      {
+        "seed": 3017,
+        "config": {
+          "industry": "construction",
+          "difficulty": "intermediate",
+          "base_currency": "EUR",
+          "faults": {
+            "payment_allocation": 2
+          }
+        }
+      },
+      {
+        "seed": 3018,
+        "config": {
+          "industry": "manufacturing",
+          "difficulty": "advanced",
+          "base_currency": "KZT",
+          "faults": {
+            "fx_rate": 1
+          }
+        }
+      },
+      {
+        "seed": 3019,
+        "config": {
+          "industry": "retail_services",
+          "difficulty": "expert",
+          "base_currency": "USD",
+          "faults": {
+            "reporting_period": 2
+          }
+        }
+      }
+    ]
+  },
+  "splits": {
+    "train": {
+      "random_explorer": {
+        "runs": [
+          {
+            "seed": 1000,
+            "episode_id": "EP-c4de9a63d556",
+            "steps": 9,
+            "runtime_seconds": 0.019868291914463043,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.984,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 1001,
+            "episode_id": "EP-3fbc2a243050",
+            "steps": 9,
+            "runtime_seconds": 0.005134499981068075,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.984,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 1002,
+            "episode_id": "EP-e1038e941adc",
+            "steps": 9,
+            "runtime_seconds": 0.005922792013734579,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 1003,
+            "episode_id": "EP-7b7c45465f6c",
+            "steps": 9,
+            "runtime_seconds": 0.00570312503259629,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 1004,
+            "episode_id": "EP-bf39b1748fd2",
+            "steps": 9,
+            "runtime_seconds": 0.00554249994456768,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 1005,
+            "episode_id": "EP-5f8c6c065cbd",
+            "steps": 9,
+            "runtime_seconds": 0.0054188750218600035,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 1006,
+            "episode_id": "EP-5620a80279ed",
+            "steps": 9,
+            "runtime_seconds": 0.005059667048044503,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 1007,
+            "episode_id": "EP-25c6213e4fb8",
+            "steps": 9,
+            "runtime_seconds": 0.007321167038753629,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 1008,
+            "episode_id": "EP-b3986dd88650",
+            "steps": 9,
+            "runtime_seconds": 0.007099666981957853,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 4,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 1009,
+            "episode_id": "EP-f266c52dce52",
+            "steps": 9,
+            "runtime_seconds": 0.011121499934233725,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 10,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          }
+        ],
+        "means": {
+          "precision": 0.2,
+          "recall": 0.2,
+          "f1": 0.2,
+          "reward": -0.6032,
+          "inspection_steps": 8.0,
+          "steps": 9.0,
+          "runtime_seconds": 0.007819208491127938
+        }
+      },
+      "reconciler": {
+        "runs": [
+          {
+            "seed": 1000,
+            "episode_id": "EP-c4de9a63d556",
+            "steps": 18,
+            "runtime_seconds": 0.006389167043380439,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.966,
+            "inspection_steps": 17
+          },
+          {
+            "seed": 1001,
+            "episode_id": "EP-3fbc2a243050",
+            "steps": 16,
+            "runtime_seconds": 0.0055293330224230886,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.97,
+            "inspection_steps": 15
+          },
+          {
+            "seed": 1002,
+            "episode_id": "EP-e1038e941adc",
+            "steps": 16,
+            "runtime_seconds": 0.0061544160125777125,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.97,
+            "inspection_steps": 15
+          },
+          {
+            "seed": 1003,
+            "episode_id": "EP-7b7c45465f6c",
+            "steps": 16,
+            "runtime_seconds": 0.005652875057421625,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.97,
+            "inspection_steps": 15
+          },
+          {
+            "seed": 1004,
+            "episode_id": "EP-bf39b1748fd2",
+            "steps": 19,
+            "runtime_seconds": 0.005815834039822221,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.964,
+            "inspection_steps": 18
+          },
+          {
+            "seed": 1005,
+            "episode_id": "EP-5f8c6c065cbd",
+            "steps": 16,
+            "runtime_seconds": 0.005539875011891127,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.97,
+            "inspection_steps": 15
+          },
+          {
+            "seed": 1006,
+            "episode_id": "EP-5620a80279ed",
+            "steps": 13,
+            "runtime_seconds": 0.005296832998283207,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.976,
+            "inspection_steps": 12
+          },
+          {
+            "seed": 1007,
+            "episode_id": "EP-25c6213e4fb8",
+            "steps": 19,
+            "runtime_seconds": 0.007502040942199528,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.964,
+            "inspection_steps": 18
+          },
+          {
+            "seed": 1008,
+            "episode_id": "EP-b3986dd88650",
+            "steps": 17,
+            "runtime_seconds": 0.007344834040850401,
+            "valid": true,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.968,
+            "inspection_steps": 16
+          },
+          {
+            "seed": 1009,
+            "episode_id": "EP-f266c52dce52",
+            "steps": 20,
+            "runtime_seconds": 0.010315833031199872,
+            "valid": true,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.962,
+            "inspection_steps": 19
+          }
+        ],
+        "means": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "reward": 0.968,
+          "inspection_steps": 16.0,
+          "steps": 17.0,
+          "runtime_seconds": 0.0065541041200049225
+        }
+      },
+      "flag_all": {
+        "runs": [
+          {
+            "seed": 1000,
+            "episode_id": "EP-c4de9a63d556",
+            "steps": 3,
+            "runtime_seconds": 0.006905292044393718,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 1.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 1001,
+            "episode_id": "EP-3fbc2a243050",
+            "steps": 3,
+            "runtime_seconds": 0.005152584053575993,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 1.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 1002,
+            "episode_id": "EP-e1038e941adc",
+            "steps": 3,
+            "runtime_seconds": 0.005949749960564077,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 1003,
+            "episode_id": "EP-7b7c45465f6c",
+            "steps": 3,
+            "runtime_seconds": 0.005448709009215236,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 1004,
+            "episode_id": "EP-bf39b1748fd2",
+            "steps": 3,
+            "runtime_seconds": 0.005589667009189725,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 1005,
+            "episode_id": "EP-5f8c6c065cbd",
+            "steps": 3,
+            "runtime_seconds": 0.00546820810995996,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 1006,
+            "episode_id": "EP-5620a80279ed",
+            "steps": 3,
+            "runtime_seconds": 0.005212749936617911,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 1007,
+            "episode_id": "EP-25c6213e4fb8",
+            "steps": 3,
+            "runtime_seconds": 0.007190459058620036,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 1008,
+            "episode_id": "EP-b3986dd88650",
+            "steps": 3,
+            "runtime_seconds": 0.007378790993243456,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 4,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 1009,
+            "episode_id": "EP-f266c52dce52",
+            "steps": 3,
+            "runtime_seconds": 0.010292000020854175,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 10,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          }
+        ],
+        "means": {
+          "precision": 0.0,
+          "recall": 0.2,
+          "f1": 0.0,
+          "reward": -1.0,
+          "inspection_steps": 2.0,
+          "steps": 3.0,
+          "runtime_seconds": 0.006458821019623429
+        }
+      },
+      "oracle": {
+        "runs": [
+          {
+            "seed": 1000,
+            "episode_id": "EP-c4de9a63d556",
+            "steps": 1,
+            "runtime_seconds": 0.007540874998085201,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 1001,
+            "episode_id": "EP-3fbc2a243050",
+            "steps": 1,
+            "runtime_seconds": 0.004992958041839302,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 1002,
+            "episode_id": "EP-e1038e941adc",
+            "steps": 1,
+            "runtime_seconds": 0.005792625015601516,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 1003,
+            "episode_id": "EP-7b7c45465f6c",
+            "steps": 1,
+            "runtime_seconds": 0.005496624973602593,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 1004,
+            "episode_id": "EP-bf39b1748fd2",
+            "steps": 1,
+            "runtime_seconds": 0.005504499888047576,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 1005,
+            "episode_id": "EP-5f8c6c065cbd",
+            "steps": 1,
+            "runtime_seconds": 0.0052643329836428165,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 1006,
+            "episode_id": "EP-5620a80279ed",
+            "steps": 1,
+            "runtime_seconds": 0.005218749982304871,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 1007,
+            "episode_id": "EP-25c6213e4fb8",
+            "steps": 1,
+            "runtime_seconds": 0.00735158403404057,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 1008,
+            "episode_id": "EP-b3986dd88650",
+            "steps": 1,
+            "runtime_seconds": 0.0070842920104041696,
+            "valid": true,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 1009,
+            "episode_id": "EP-f266c52dce52",
+            "steps": 1,
+            "runtime_seconds": 0.009875083924271166,
+            "valid": true,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          }
+        ],
+        "means": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "reward": 1.0,
+          "inspection_steps": 0.0,
+          "steps": 1.0,
+          "runtime_seconds": 0.006412162585183978
+        }
+      }
+    },
+    "dev": {
+      "random_explorer": {
+        "runs": [
+          {
+            "seed": 2000,
+            "episode_id": "EP-836c385b541d",
+            "steps": 9,
+            "runtime_seconds": 0.020837333984673023,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.984,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 2001,
+            "episode_id": "EP-e1345545ac45",
+            "steps": 9,
+            "runtime_seconds": 0.005013292073272169,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.984,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 2002,
+            "episode_id": "EP-7b93146f5f5a",
+            "steps": 9,
+            "runtime_seconds": 0.005778542021289468,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 2003,
+            "episode_id": "EP-fe7f026bfe46",
+            "steps": 9,
+            "runtime_seconds": 0.005868791020475328,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 2004,
+            "episode_id": "EP-1f290341187a",
+            "steps": 9,
+            "runtime_seconds": 0.006070332950912416,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 2005,
+            "episode_id": "EP-0ae47efa9e93",
+            "steps": 9,
+            "runtime_seconds": 0.005928665981628001,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 2006,
+            "episode_id": "EP-4685242a3096",
+            "steps": 9,
+            "runtime_seconds": 0.00596129207406193,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 2007,
+            "episode_id": "EP-bfbc77cb4655",
+            "steps": 9,
+            "runtime_seconds": 0.0070621659979224205,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 2008,
+            "episode_id": "EP-352514938b61",
+            "steps": 9,
+            "runtime_seconds": 0.007426082971505821,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 4,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 2009,
+            "episode_id": "EP-2d44a3f717b6",
+            "steps": 9,
+            "runtime_seconds": 0.010511665954254568,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 10,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          }
+        ],
+        "means": {
+          "precision": 0.2,
+          "recall": 0.2,
+          "f1": 0.2,
+          "reward": -0.6032,
+          "inspection_steps": 8.0,
+          "steps": 9.0,
+          "runtime_seconds": 0.008045816502999514
+        }
+      },
+      "reconciler": {
+        "runs": [
+          {
+            "seed": 2000,
+            "episode_id": "EP-836c385b541d",
+            "steps": 17,
+            "runtime_seconds": 0.00583883305080235,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.968,
+            "inspection_steps": 16
+          },
+          {
+            "seed": 2001,
+            "episode_id": "EP-e1345545ac45",
+            "steps": 14,
+            "runtime_seconds": 0.005182666936889291,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.974,
+            "inspection_steps": 13
+          },
+          {
+            "seed": 2002,
+            "episode_id": "EP-7b93146f5f5a",
+            "steps": 20,
+            "runtime_seconds": 0.0066006670240312815,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.962,
+            "inspection_steps": 19
+          },
+          {
+            "seed": 2003,
+            "episode_id": "EP-fe7f026bfe46",
+            "steps": 14,
+            "runtime_seconds": 0.0057920829858630896,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.974,
+            "inspection_steps": 13
+          },
+          {
+            "seed": 2004,
+            "episode_id": "EP-1f290341187a",
+            "steps": 16,
+            "runtime_seconds": 0.005994415958411992,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.97,
+            "inspection_steps": 15
+          },
+          {
+            "seed": 2005,
+            "episode_id": "EP-0ae47efa9e93",
+            "steps": 18,
+            "runtime_seconds": 0.006209166953340173,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.966,
+            "inspection_steps": 17
+          },
+          {
+            "seed": 2006,
+            "episode_id": "EP-4685242a3096",
+            "steps": 18,
+            "runtime_seconds": 0.006149749970063567,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.966,
+            "inspection_steps": 17
+          },
+          {
+            "seed": 2007,
+            "episode_id": "EP-bfbc77cb4655",
+            "steps": 17,
+            "runtime_seconds": 0.0072475000051781535,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.968,
+            "inspection_steps": 16
+          },
+          {
+            "seed": 2008,
+            "episode_id": "EP-352514938b61",
+            "steps": 18,
+            "runtime_seconds": 0.007809790899045765,
+            "valid": true,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.966,
+            "inspection_steps": 17
+          },
+          {
+            "seed": 2009,
+            "episode_id": "EP-2d44a3f717b6",
+            "steps": 21,
+            "runtime_seconds": 0.010890042060054839,
+            "valid": true,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.96,
+            "inspection_steps": 20
+          }
+        ],
+        "means": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "reward": 0.9673999999999999,
+          "inspection_steps": 16.3,
+          "steps": 17.3,
+          "runtime_seconds": 0.00677149158436805
+        }
+      },
+      "flag_all": {
+        "runs": [
+          {
+            "seed": 2000,
+            "episode_id": "EP-836c385b541d",
+            "steps": 3,
+            "runtime_seconds": 0.005513749900273979,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 1.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 2001,
+            "episode_id": "EP-e1345545ac45",
+            "steps": 3,
+            "runtime_seconds": 0.004992209025658667,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 1.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 2002,
+            "episode_id": "EP-7b93146f5f5a",
+            "steps": 3,
+            "runtime_seconds": 0.006220375071279705,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 2003,
+            "episode_id": "EP-fe7f026bfe46",
+            "steps": 3,
+            "runtime_seconds": 0.005739500047639012,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 2004,
+            "episode_id": "EP-1f290341187a",
+            "steps": 3,
+            "runtime_seconds": 0.005732999998144805,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 2005,
+            "episode_id": "EP-0ae47efa9e93",
+            "steps": 3,
+            "runtime_seconds": 0.005880083073861897,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 2006,
+            "episode_id": "EP-4685242a3096",
+            "steps": 3,
+            "runtime_seconds": 0.007165624992921948,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 2007,
+            "episode_id": "EP-bfbc77cb4655",
+            "steps": 3,
+            "runtime_seconds": 0.007001625024713576,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 2008,
+            "episode_id": "EP-352514938b61",
+            "steps": 3,
+            "runtime_seconds": 0.007511166972108185,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 4,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 2009,
+            "episode_id": "EP-2d44a3f717b6",
+            "steps": 3,
+            "runtime_seconds": 0.010349459014832973,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 10,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          }
+        ],
+        "means": {
+          "precision": 0.0,
+          "recall": 0.2,
+          "f1": 0.0,
+          "reward": -1.0,
+          "inspection_steps": 2.0,
+          "steps": 3.0,
+          "runtime_seconds": 0.006610679312143475
+        }
+      },
+      "oracle": {
+        "runs": [
+          {
+            "seed": 2000,
+            "episode_id": "EP-836c385b541d",
+            "steps": 1,
+            "runtime_seconds": 0.0054575829999521375,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 2001,
+            "episode_id": "EP-e1345545ac45",
+            "steps": 1,
+            "runtime_seconds": 0.004820041009224951,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 2002,
+            "episode_id": "EP-7b93146f5f5a",
+            "steps": 1,
+            "runtime_seconds": 0.00691299990285188,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 2003,
+            "episode_id": "EP-fe7f026bfe46",
+            "steps": 1,
+            "runtime_seconds": 0.005472542019560933,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 2004,
+            "episode_id": "EP-1f290341187a",
+            "steps": 1,
+            "runtime_seconds": 0.007502291933633387,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 2005,
+            "episode_id": "EP-0ae47efa9e93",
+            "steps": 1,
+            "runtime_seconds": 0.005889250081963837,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 2006,
+            "episode_id": "EP-4685242a3096",
+            "steps": 1,
+            "runtime_seconds": 0.005758333019912243,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 2007,
+            "episode_id": "EP-bfbc77cb4655",
+            "steps": 1,
+            "runtime_seconds": 0.006902083987370133,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 2008,
+            "episode_id": "EP-352514938b61",
+            "steps": 1,
+            "runtime_seconds": 0.007552083930931985,
+            "valid": true,
+            "tp": 4,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 2009,
+            "episode_id": "EP-2d44a3f717b6",
+            "steps": 1,
+            "runtime_seconds": 0.010143166990019381,
+            "valid": true,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          }
+        ],
+        "means": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "reward": 1.0,
+          "inspection_steps": 0.0,
+          "steps": 1.0,
+          "runtime_seconds": 0.006641037587542087
+        }
+      }
+    },
+    "mirror": {
+      "random_explorer": {
+        "runs": [
+          {
+            "seed": 3000,
+            "episode_id": "EP-753bb0abd146",
+            "steps": 9,
+            "runtime_seconds": 0.020555624971166253,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.984,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3001,
+            "episode_id": "EP-34fdcc5b82f0",
+            "steps": 9,
+            "runtime_seconds": 0.0056093750754371285,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.984,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3002,
+            "episode_id": "EP-5791fb91ff49",
+            "steps": 9,
+            "runtime_seconds": 0.007318750023841858,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.984,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3003,
+            "episode_id": "EP-dc5cae48a0f1",
+            "steps": 9,
+            "runtime_seconds": 0.009687250014394522,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.984,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3004,
+            "episode_id": "EP-50ba868bdd66",
+            "steps": 9,
+            "runtime_seconds": 0.004758499911986291,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.984,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3005,
+            "episode_id": "EP-f9c2633088e7",
+            "steps": 9,
+            "runtime_seconds": 0.005447124945931137,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3006,
+            "episode_id": "EP-cd0042a9b1d6",
+            "steps": 9,
+            "runtime_seconds": 0.007228708011098206,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3007,
+            "episode_id": "EP-6774b505cf82",
+            "steps": 9,
+            "runtime_seconds": 0.009754333994351327,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3008,
+            "episode_id": "EP-99a8819e2440",
+            "steps": 9,
+            "runtime_seconds": 0.005086791003122926,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3009,
+            "episode_id": "EP-8e6035291fcf",
+            "steps": 9,
+            "runtime_seconds": 0.005896667018532753,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3010,
+            "episode_id": "EP-69856f328295",
+            "steps": 9,
+            "runtime_seconds": 0.007251082919538021,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3011,
+            "episode_id": "EP-e48ede384eaa",
+            "steps": 9,
+            "runtime_seconds": 0.00980841601267457,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3012,
+            "episode_id": "EP-cb9d3cf8b683",
+            "steps": 9,
+            "runtime_seconds": 0.004703124985098839,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3013,
+            "episode_id": "EP-8ef9d88cada6",
+            "steps": 9,
+            "runtime_seconds": 0.006060209008865058,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3014,
+            "episode_id": "EP-cd3444cb3181",
+            "steps": 9,
+            "runtime_seconds": 0.00750837498344481,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3015,
+            "episode_id": "EP-5a9d29625063",
+            "steps": 9,
+            "runtime_seconds": 0.010443790932185948,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3016,
+            "episode_id": "EP-ab51f7edc257",
+            "steps": 9,
+            "runtime_seconds": 0.0054680409375578165,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3017,
+            "episode_id": "EP-04cbb2005894",
+            "steps": 9,
+            "runtime_seconds": 0.005563375074416399,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3018,
+            "episode_id": "EP-68eaac72e08d",
+            "steps": 9,
+            "runtime_seconds": 0.008215415989980102,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          },
+          {
+            "seed": 3019,
+            "episode_id": "EP-73b9c8a19766",
+            "steps": 9,
+            "runtime_seconds": 0.01200925000011921,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 8
+          }
+        ],
+        "means": {
+          "precision": 0.25,
+          "recall": 0.25,
+          "f1": 0.25,
+          "reward": -0.504,
+          "inspection_steps": 8.0,
+          "steps": 9.0,
+          "runtime_seconds": 0.007918710290687159
+        }
+      },
+      "reconciler": {
+        "runs": [
+          {
+            "seed": 3000,
+            "episode_id": "EP-753bb0abd146",
+            "steps": 14,
+            "runtime_seconds": 0.005065582925453782,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.974,
+            "inspection_steps": 13
+          },
+          {
+            "seed": 3001,
+            "episode_id": "EP-34fdcc5b82f0",
+            "steps": 15,
+            "runtime_seconds": 0.005604958045296371,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.972,
+            "inspection_steps": 14
+          },
+          {
+            "seed": 3002,
+            "episode_id": "EP-5791fb91ff49",
+            "steps": 18,
+            "runtime_seconds": 0.007655708002857864,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.966,
+            "inspection_steps": 17
+          },
+          {
+            "seed": 3003,
+            "episode_id": "EP-dc5cae48a0f1",
+            "steps": 22,
+            "runtime_seconds": 0.009889750042930245,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.958,
+            "inspection_steps": 21
+          },
+          {
+            "seed": 3004,
+            "episode_id": "EP-50ba868bdd66",
+            "steps": 14,
+            "runtime_seconds": 0.004775875015184283,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.974,
+            "inspection_steps": 13
+          },
+          {
+            "seed": 3005,
+            "episode_id": "EP-f9c2633088e7",
+            "steps": 16,
+            "runtime_seconds": 0.005734457983635366,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.97,
+            "inspection_steps": 15
+          },
+          {
+            "seed": 3006,
+            "episode_id": "EP-cd0042a9b1d6",
+            "steps": 18,
+            "runtime_seconds": 0.0076030000345781446,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.966,
+            "inspection_steps": 17
+          },
+          {
+            "seed": 3007,
+            "episode_id": "EP-6774b505cf82",
+            "steps": 22,
+            "runtime_seconds": 0.01020112494006753,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.958,
+            "inspection_steps": 21
+          },
+          {
+            "seed": 3008,
+            "episode_id": "EP-99a8819e2440",
+            "steps": 14,
+            "runtime_seconds": 0.0051901249680668116,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.974,
+            "inspection_steps": 13
+          },
+          {
+            "seed": 3009,
+            "episode_id": "EP-8e6035291fcf",
+            "steps": 18,
+            "runtime_seconds": 0.006234584026969969,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.966,
+            "inspection_steps": 17
+          },
+          {
+            "seed": 3010,
+            "episode_id": "EP-69856f328295",
+            "steps": 15,
+            "runtime_seconds": 0.007485124981030822,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.972,
+            "inspection_steps": 14
+          },
+          {
+            "seed": 3011,
+            "episode_id": "EP-e48ede384eaa",
+            "steps": 18,
+            "runtime_seconds": 0.010115916025824845,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.966,
+            "inspection_steps": 17
+          },
+          {
+            "seed": 3012,
+            "episode_id": "EP-cb9d3cf8b683",
+            "steps": 12,
+            "runtime_seconds": 0.004741125041618943,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.978,
+            "inspection_steps": 11
+          },
+          {
+            "seed": 3013,
+            "episode_id": "EP-8ef9d88cada6",
+            "steps": 16,
+            "runtime_seconds": 0.006234416970983148,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.97,
+            "inspection_steps": 15
+          },
+          {
+            "seed": 3014,
+            "episode_id": "EP-cd3444cb3181",
+            "steps": 19,
+            "runtime_seconds": 0.008507999940775335,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.964,
+            "inspection_steps": 18
+          },
+          {
+            "seed": 3015,
+            "episode_id": "EP-5a9d29625063",
+            "steps": 22,
+            "runtime_seconds": 0.010309875011444092,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.958,
+            "inspection_steps": 21
+          },
+          {
+            "seed": 3016,
+            "episode_id": "EP-ab51f7edc257",
+            "steps": 14,
+            "runtime_seconds": 0.0055818750988692045,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.974,
+            "inspection_steps": 13
+          },
+          {
+            "seed": 3017,
+            "episode_id": "EP-04cbb2005894",
+            "steps": 15,
+            "runtime_seconds": 0.00578741601202637,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.972,
+            "inspection_steps": 14
+          },
+          {
+            "seed": 3018,
+            "episode_id": "EP-68eaac72e08d",
+            "steps": 22,
+            "runtime_seconds": 0.008424791973084211,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.958,
+            "inspection_steps": 21
+          },
+          {
+            "seed": 3019,
+            "episode_id": "EP-73b9c8a19766",
+            "steps": 20,
+            "runtime_seconds": 0.010794500005431473,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 0.962,
+            "inspection_steps": 19
+          }
+        ],
+        "means": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "reward": 0.9676,
+          "inspection_steps": 16.2,
+          "steps": 17.2,
+          "runtime_seconds": 0.00729691035230644
+        }
+      },
+      "flag_all": {
+        "runs": [
+          {
+            "seed": 3000,
+            "episode_id": "EP-753bb0abd146",
+            "steps": 3,
+            "runtime_seconds": 0.004623500048182905,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 1.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3001,
+            "episode_id": "EP-34fdcc5b82f0",
+            "steps": 3,
+            "runtime_seconds": 0.005714208004064858,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 1.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3002,
+            "episode_id": "EP-5791fb91ff49",
+            "steps": 3,
+            "runtime_seconds": 0.007329750107601285,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 1.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3003,
+            "episode_id": "EP-dc5cae48a0f1",
+            "steps": 3,
+            "runtime_seconds": 0.009648665902204812,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 1.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3004,
+            "episode_id": "EP-50ba868bdd66",
+            "steps": 3,
+            "runtime_seconds": 0.004843250033445656,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 1.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3005,
+            "episode_id": "EP-f9c2633088e7",
+            "steps": 3,
+            "runtime_seconds": 0.00565783295314759,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3006,
+            "episode_id": "EP-cd0042a9b1d6",
+            "steps": 3,
+            "runtime_seconds": 0.007661459036171436,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3007,
+            "episode_id": "EP-6774b505cf82",
+            "steps": 3,
+            "runtime_seconds": 0.009795834077522159,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3008,
+            "episode_id": "EP-99a8819e2440",
+            "steps": 3,
+            "runtime_seconds": 0.005178124993108213,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3009,
+            "episode_id": "EP-8e6035291fcf",
+            "steps": 3,
+            "runtime_seconds": 0.006044624955393374,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3010,
+            "episode_id": "EP-69856f328295",
+            "steps": 3,
+            "runtime_seconds": 0.007261791033670306,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3011,
+            "episode_id": "EP-e48ede384eaa",
+            "steps": 3,
+            "runtime_seconds": 0.009692042018286884,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3012,
+            "episode_id": "EP-cb9d3cf8b683",
+            "steps": 3,
+            "runtime_seconds": 0.004691625013947487,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3013,
+            "episode_id": "EP-8ef9d88cada6",
+            "steps": 3,
+            "runtime_seconds": 0.00595991697628051,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3014,
+            "episode_id": "EP-cd3444cb3181",
+            "steps": 3,
+            "runtime_seconds": 0.009018916985951364,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3015,
+            "episode_id": "EP-5a9d29625063",
+            "steps": 3,
+            "runtime_seconds": 0.01000637502875179,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3016,
+            "episode_id": "EP-ab51f7edc257",
+            "steps": 3,
+            "runtime_seconds": 0.005877749994397163,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3017,
+            "episode_id": "EP-04cbb2005894",
+            "steps": 3,
+            "runtime_seconds": 0.0056588329607620835,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3018,
+            "episode_id": "EP-68eaac72e08d",
+            "steps": 3,
+            "runtime_seconds": 0.007925458019599319,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          },
+          {
+            "seed": 3019,
+            "episode_id": "EP-73b9c8a19766",
+            "steps": 3,
+            "runtime_seconds": 0.010384374996647239,
+            "valid": true,
+            "tp": 0,
+            "fp": 30,
+            "fn": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "reward": -1.0,
+            "inspection_steps": 2
+          }
+        ],
+        "means": {
+          "precision": 0.0,
+          "recall": 0.25,
+          "f1": 0.0,
+          "reward": -1.0,
+          "inspection_steps": 2.0,
+          "steps": 3.0,
+          "runtime_seconds": 0.007148716656956822
+        }
+      },
+      "oracle": {
+        "runs": [
+          {
+            "seed": 3000,
+            "episode_id": "EP-753bb0abd146",
+            "steps": 1,
+            "runtime_seconds": 0.004482208983972669,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3001,
+            "episode_id": "EP-34fdcc5b82f0",
+            "steps": 1,
+            "runtime_seconds": 0.005564291030168533,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3002,
+            "episode_id": "EP-5791fb91ff49",
+            "steps": 1,
+            "runtime_seconds": 0.00742762500885874,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3003,
+            "episode_id": "EP-dc5cae48a0f1",
+            "steps": 1,
+            "runtime_seconds": 0.009503624984063208,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3004,
+            "episode_id": "EP-50ba868bdd66",
+            "steps": 1,
+            "runtime_seconds": 0.004744292004033923,
+            "valid": true,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3005,
+            "episode_id": "EP-f9c2633088e7",
+            "steps": 1,
+            "runtime_seconds": 0.005483249900862575,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3006,
+            "episode_id": "EP-cd0042a9b1d6",
+            "steps": 1,
+            "runtime_seconds": 0.007436417043209076,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3007,
+            "episode_id": "EP-6774b505cf82",
+            "steps": 1,
+            "runtime_seconds": 0.009691208018921316,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3008,
+            "episode_id": "EP-99a8819e2440",
+            "steps": 1,
+            "runtime_seconds": 0.005045083002187312,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3009,
+            "episode_id": "EP-8e6035291fcf",
+            "steps": 1,
+            "runtime_seconds": 0.005950707942247391,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3010,
+            "episode_id": "EP-69856f328295",
+            "steps": 1,
+            "runtime_seconds": 0.007104875054210424,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3011,
+            "episode_id": "EP-e48ede384eaa",
+            "steps": 1,
+            "runtime_seconds": 0.009826332912780344,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3012,
+            "episode_id": "EP-cb9d3cf8b683",
+            "steps": 1,
+            "runtime_seconds": 0.004570959019474685,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3013,
+            "episode_id": "EP-8ef9d88cada6",
+            "steps": 1,
+            "runtime_seconds": 0.005937125068157911,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3014,
+            "episode_id": "EP-cd3444cb3181",
+            "steps": 1,
+            "runtime_seconds": 0.007531957933679223,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3015,
+            "episode_id": "EP-5a9d29625063",
+            "steps": 1,
+            "runtime_seconds": 0.009932833025231957,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3016,
+            "episode_id": "EP-ab51f7edc257",
+            "steps": 1,
+            "runtime_seconds": 0.005815541953779757,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3017,
+            "episode_id": "EP-04cbb2005894",
+            "steps": 1,
+            "runtime_seconds": 0.005697709042578936,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3018,
+            "episode_id": "EP-68eaac72e08d",
+            "steps": 1,
+            "runtime_seconds": 0.008007916971109807,
+            "valid": true,
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          },
+          {
+            "seed": 3019,
+            "episode_id": "EP-73b9c8a19766",
+            "steps": 1,
+            "runtime_seconds": 0.01050316693726927,
+            "valid": true,
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "reward": 1.0,
+            "inspection_steps": 0
+          }
+        ],
+        "means": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "reward": 1.0,
+          "inspection_steps": 0.0,
+          "steps": 1.0,
+          "runtime_seconds": 0.007012856291839853
+        }
+      }
+    }
+  },
+  "pairs": [
+    {
+      "seed": 3000,
+      "salt": "mirror-3000",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3001,
+      "salt": "mirror-3001",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3002,
+      "salt": "mirror-3002",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3003,
+      "salt": "mirror-3003",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3004,
+      "salt": "mirror-3004",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3005,
+      "salt": "mirror-3005",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3006,
+      "salt": "mirror-3006",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3007,
+      "salt": "mirror-3007",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3008,
+      "salt": "mirror-3008",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3009,
+      "salt": "mirror-3009",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3010,
+      "salt": "mirror-3010",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3011,
+      "salt": "mirror-3011",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3012,
+      "salt": "mirror-3012",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3013,
+      "salt": "mirror-3013",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3014,
+      "salt": "mirror-3014",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3015,
+      "salt": "mirror-3015",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3016,
+      "salt": "mirror-3016",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3017,
+      "salt": "mirror-3017",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3018,
+      "salt": "mirror-3018",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    },
+    {
+      "seed": 3019,
+      "salt": "mirror-3019",
+      "checks": {
+        "ids_changed": true,
+        "order_changed": true,
+        "public_records_equivalent": true,
+        "findings_equivalent": true,
+        "reward_identical": true,
+        "replay_identical": true
+      }
+    }
+  ]
+}
