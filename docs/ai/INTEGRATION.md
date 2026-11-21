@@ -30,3 +30,9 @@ Commands: `make verify` → ruff clean, pytest all passed (count in commit messa
 - `uv run pytest -o addopts='' -q tests/test_baselines.py` passed all 25 checks. All three policies terminated within budget and repeated identically on five seeds. The import guard also ran their policies in a fresh interpreter.
 - Claude Opus approved the policy diff. Allocation checks cover base-currency remittances, the generator's current allocation-fault scope.
 - `git rebase main` incorporated CL-01/02/03 and CX-01. `make lint test && uv run pytest -o addopts='' -q` then passed with clean Ruff checks and 156 passing tests.
+
+## 2026-11-21 — CX-03 (Codex, agent/cx-03)
+
+- `uv run pytest -o addopts='' -q tests/test_adversarial.py` passed all three tests. They cover 10 faulted and five clean episodes, 20 distinct finding permutations, and a persuasive claim outside the one-minor-unit tolerance.
+- `git rebase agent/cx-02` incorporated the baseline policies. `make lint test && uv run pytest -o addopts='' -q` passed with clean Ruff checks and 159 passing tests.
+- Claude Opus approved the test suite. The test now labels the frozen amount tolerance explicitly.
