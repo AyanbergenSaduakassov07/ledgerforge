@@ -129,6 +129,24 @@ uv run ledgerforge demo --count 3   # oracle episodes → outputs/trajectories/d
 
 Benchmark command: pending CX-04.
 
+## Demonstration
+
+```bash
+make walkthrough    # uv run python -m ledgerforge.walkthrough [--seed N]
+```
+
+Runs the eight pitch points on one interaction episode, in order:
+1. generate a company;
+2. show an invoice → ledger → payment chain;
+3. let the rule-based reconciler investigate;
+4. show the injected duplicate+allocation interaction (trusted-runner view);
+5. show its evidence-backed findings;
+6. show the evaluator's reward;
+7. show flag-all and the oracle on the same episode;
+8. rename every id, shuffle every table, and show the reward is unchanged.
+
+The command exits non-zero if the reward changes after renaming.
+
 ## Optional cloud / UI
 
 None. Official verification needs no cloud gateway, frontend or API key.
