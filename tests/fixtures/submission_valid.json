@@ -1,0 +1,13 @@
+{
+  "episode_id": "EP-000000000001",
+  "findings": [
+    {
+      "type": "duplicate_invoice",
+      "affected_ids": ["DOC-10000001", "DOC-10000002"],
+      "claimed_amount_minor": 125000,
+      "currency": "KZT",
+      "evidence_ids": ["DOC-10000001", "DOC-10000002", "R1000001"],
+      "explanation": "Same supplier, currency, total and line items (incl. PO) entered twice."
+    }
+  ]
+}

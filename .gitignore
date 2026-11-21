@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.env
+# private truth never enters git (except released train/dev truth, added explicitly later)
+private/
+episodes/generated/
+outputs/trajectories/*.jsonl
+outputs/benchmarks/raw/
+.DS_Store
+# organiser case PDF: kept local, not redistributed
+docs/official_case_ru.pdf

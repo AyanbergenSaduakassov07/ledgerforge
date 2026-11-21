@@ -1,0 +1,35 @@
+[project]
+name = "ledgerforge"
+version = "0.1.0"
+description = "Causal financial-audit RL environment (REC Genesis Hackathon 2026, FinTech)"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11,<3.12"
+# Runtime is standard library only: no network, GPU or paid API at evaluation time.
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest", "ruff", "jsonschema"]
+
+[project.scripts]
+ledgerforge = "ledgerforge.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ledgerforge"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["S101", "S311", "S603"]  # asserts in tests; random is for simulation, not crypto; subprocess is our own evaluator
