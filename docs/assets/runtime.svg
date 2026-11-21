@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="300" viewBox="0 0 1100 300" role="img" aria-label="Runtime: agent, environment and isolated evaluator process">
+<title>Runtime isolation</title>
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10z" class="ar"/>
+  </marker>
+</defs>
+<style>
+.card{fill:#f6f8fa;stroke:#d0d7de}.box{fill:#ffffff;stroke:#d0d7de}.fg{fill:#1f2328}.mu{fill:#59636e}
+.ln{stroke:#8c959f}.ar{fill:#8c959f}
+@media (prefers-color-scheme:dark){.card{fill:#161b22;stroke:#30363d}.box{fill:#0d1117;stroke:#30363d}
+.fg{fill:#e6edf3}.mu{fill:#9198a1}.ln{stroke:#6e7681}.ar{fill:#6e7681}}
+text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.h{font-size:15px;font-weight:700}.s{font-size:12px}.m{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px}
+</style>
+<rect class="card" x="0.5" y="0.5" width="1099" height="299" rx="12"/>
+<text class="fg" x="24" y="36" font-size="18" font-weight="600">One episode at run time</text>
+<text class="mu s" x="24" y="56">The truth never enters the agent's process: scoring happens behind an OS process boundary</text>
+
+<!-- process A -->
+<rect x="24" y="76" width="640" height="200" rx="12" fill="#3b82f6" fill-opacity="0.06" stroke="#3b82f6" stroke-opacity="0.5" stroke-dasharray="6 4"/>
+<text x="40" y="98" class="s" font-weight="600" fill="#3b82f6">agent process · public data only</text>
+<g transform="translate(48 120)">
+  <rect class="box" width="200" height="130" rx="10"/>
+  <text class="fg h" x="16" y="32">Agent policy</text>
+  <text class="mu s" x="16" y="56">sees the task, the published</text>
+  <text class="mu s" x="16" y="74">rules and tool results</text>
+  <text class="mu m" x="16" y="104">reconciler · random</text>
+  <text class="mu m" x="16" y="118">flag-all · your agent</text>
+</g>
+<g transform="translate(404 120)">
+  <rect class="box" width="240" height="130" rx="10"/>
+  <text class="fg h" x="16" y="32">AuditEnv</text>
+  <text class="mu m" x="16" y="56">list_records  get_record</text>
+  <text class="mu m" x="16" y="74">get_document  calculator</text>
+  <text class="mu m" x="16" y="92">submit</text>
+  <text class="mu s" x="16" y="118">100 steps · 60 s · page ≤ 50</text>
+</g>
+<g class="ln" stroke-width="2" fill="none" marker-end="url(#a)">
+  <path d="M252 160H400"/><path d="M400 210H252"/>
+  <path d="M648 185H806"/>
+</g>
+<text class="mu m" x="326" y="152" text-anchor="middle">action</text>
+<text class="mu m" x="326" y="228" text-anchor="middle">observation, reward</text>
+<text class="mu m" x="727" y="176" text-anchor="middle">JSON lines</text>
+<text class="mu m" x="727" y="203" text-anchor="middle">stdin / stdout</text>
+
+<!-- process B -->
+<rect x="810" y="76" width="266" height="200" rx="12" fill="#ef4444" fill-opacity="0.06" stroke="#ef4444" stroke-opacity="0.5" stroke-dasharray="6 4"/>
+<text x="826" y="98" class="s" font-weight="600" fill="#ef4444">evaluator process · holds truth</text>
+<g transform="translate(830 120)">
+  <rect class="box" width="226" height="130" rx="10"/>
+  <g transform="translate(184 14)">
+    <rect x="0" y="10" width="24" height="18" rx="3" fill="#ef4444"/>
+    <path d="M5 10V6a7 7 0 0 1 14 0v4" fill="none" stroke="#ef4444" stroke-width="3"/>
+  </g>
+  <text class="fg h" x="16" y="32">Matcher + reward</text>
+  <text class="mu s" x="16" y="56">one-to-one Kuhn matching</text>
+  <text class="mu s" x="16" y="74">type · ids · amount ±1 ·</text>
+  <text class="mu s" x="16" y="92">currency · evidence</text>
+  <text class="mu m" x="16" y="118">evaluation/service.py</text>
+</g>
+</svg>

@@ -1,4 +1,4 @@
-"""Scripted demo of the eight pitch points (MASTER_SPEC §21). Offline, deterministic.
+"""Scripted demo of the eight pitch points. Offline, deterministic.
 
     uv run python -m ledgerforge.walkthrough [--seed 2006]
 

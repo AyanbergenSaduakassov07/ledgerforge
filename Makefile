@@ -1,4 +1,4 @@
-.PHONY: install lint test demo verify walkthrough bench ablation clean
+.PHONY: install lint test demo verify walkthrough bench ablation figures clean
 
 install:
 	uv sync --frozen
@@ -22,6 +22,9 @@ walkthrough:
 bench:
 	uv run ledgerforge bench
 	uv run python -m ledgerforge.benchmark.analyze
+
+figures:
+	uv run python -m ledgerforge.benchmark.figures
 
 ablation:
 	uv run python -m ledgerforge.benchmark.ablation

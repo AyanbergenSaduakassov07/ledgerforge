@@ -7,6 +7,8 @@ COPY src ./src
 COPY tests ./tests
 COPY schemas ./schemas
 COPY episodes ./episodes
+COPY outputs/benchmarks/metrics.json ./outputs/benchmarks/
+COPY outputs/reports/ablation.md ./outputs/reports/
 RUN uv sync --frozen --no-default-groups --group test
 COPY Makefile ./
 CMD ["sh", "-c", "uv run --no-sync pytest -q && uv run --no-sync ledgerforge demo --count 3"]

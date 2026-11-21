@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="330" viewBox="0 0 1100 330" role="img" aria-label="Episode generation pipeline with an acceptance gate">
+<title>How an episode is made</title>
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10z" class="ar"/>
+  </marker>
+</defs>
+<style>
+.card{fill:#f6f8fa;stroke:#d0d7de}.box{fill:#ffffff;stroke:#d0d7de}.fg{fill:#1f2328}.mu{fill:#59636e}
+.ln{stroke:#8c959f}.ar{fill:#8c959f}
+@media (prefers-color-scheme:dark){.card{fill:#161b22;stroke:#30363d}.box{fill:#0d1117;stroke:#30363d}
+.fg{fill:#e6edf3}.mu{fill:#9198a1}.ln{stroke:#6e7681}.ar{fill:#6e7681}}
+text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.h{font-size:15px;font-weight:700}.s{font-size:12px}.m{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px}
+</style>
+<rect class="card" x="0.5" y="0.5" width="1099" height="329" rx="12"/>
+<text class="fg" x="24" y="36" font-size="18" font-weight="600">How an episode is made</text>
+<text class="mu s" x="24" y="56">Nothing ships unless an independent auditor re-derives every label from public files alone</text>
+
+<!-- stages -->
+<g transform="translate(24 96)">
+  <rect class="box" width="150" height="96" rx="10"/>
+  <rect width="150" height="5" rx="2" fill="#64748b"/>
+  <text class="fg h" x="16" y="34">seed + config</text>
+  <text class="mu s" x="16" y="56">industry, difficulty,</text>
+  <text class="mu s" x="16" y="74">faults, salts</text>
+</g>
+<g transform="translate(204 96)">
+  <rect class="box" width="170" height="96" rx="10"/>
+  <rect width="170" height="5" rx="2" fill="#3b82f6"/>
+  <text class="fg h" x="16" y="34">Build the world</text>
+  <text class="mu s" x="16" y="56">balanced books: vendors,</text>
+  <text class="mu s" x="16" y="74">invoices, payments, FX</text>
+  <text class="mu m" x="16" y="90">sim/world.py</text>
+</g>
+<g transform="translate(404 96)">
+  <rect class="box" width="170" height="96" rx="10"/>
+  <rect width="170" height="5" rx="2" fill="#ef4444"/>
+  <text class="fg h" x="16" y="34">Inject faults</text>
+  <text class="mu s" x="16" y="56">edit the books the way</text>
+  <text class="mu s" x="16" y="74">a clerk's mistake would</text>
+  <text class="mu m" x="16" y="90">sim/faults.py</text>
+</g>
+<g transform="translate(604 96)">
+  <rect class="box" width="150" height="96" rx="10"/>
+  <rect width="150" height="5" rx="2" fill="#8b5cf6"/>
+  <text class="fg h" x="16" y="34">Salt (optional)</text>
+  <text class="mu s" x="16" y="56">rename every id,</text>
+  <text class="mu s" x="16" y="74">shuffle every table</text>
+  <text class="mu m" x="16" y="90">sim/salt.py</text>
+</g>
+<g transform="translate(784 84)">
+  <rect class="box" width="140" height="120" rx="10" stroke="#f59e0b" stroke-width="2"/>
+  <text class="fg h" x="70" y="32" text-anchor="middle">Acceptance</text>
+  <text class="fg h" x="70" y="50" text-anchor="middle">gate</text>
+  <text class="mu s" x="70" y="72" text-anchor="middle">audit == truth?</text>
+  <text class="mu s" x="70" y="88" text-anchor="middle">books balance?</text>
+  <text class="mu s" x="70" y="104" text-anchor="middle">size in bounds?</text>
+</g>
+<g class="ln" stroke-width="2" fill="none" marker-end="url(#a)">
+  <path d="M174 144H200"/><path d="M374 144H400"/><path d="M574 144H600"/><path d="M754 144H780"/>
+  <path d="M924 120H956V100H972"/><path d="M924 168H956V214H972"/>
+  <path d="M854 204V262H489V196" stroke="#f59e0b" stroke-dasharray="5 4"/>
+</g>
+<text class="s" x="672" y="282" text-anchor="middle" fill="#f59e0b">fail → regenerate with the next attempt (≤ 20)</text>
+
+<!-- outputs -->
+<g transform="translate(976 76)">
+  <rect class="box" width="104" height="52" rx="10" stroke="#10b981" stroke-width="2"/>
+  <text class="fg h" x="52" y="24" text-anchor="middle">public</text>
+  <text class="mu s" x="52" y="41" text-anchor="middle">agent sees</text>
+</g>
+<g transform="translate(976 190)">
+  <rect class="box" width="104" height="52" rx="10" stroke="#ef4444" stroke-width="2"/>
+  <text class="fg h" x="52" y="24" text-anchor="middle">private</text>
+  <text class="mu s" x="52" y="41" text-anchor="middle">evaluator only</text>
+</g>
+<text class="mu m" x="976" y="148">ledger · invoices</text>
+<text class="mu m" x="976" y="162">payments · FX</text>
+<text class="mu m" x="976" y="176">policy · manifest</text>
+<text class="mu m" x="976" y="262">truth · provenance</text>
+</svg>
