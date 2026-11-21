@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0.0",
-  "generator_version": "0.2.0",
+  "generator_version": "0.3.0",
   "episode_id": "EP-352514938b61",
   "base_currency": "KZT",
   "period_start": "2026-01-01",
   "period_end": "2026-03-31",
   "timezone": "Asia/Almaty",
   "counts": {
-    "ledger": 352,
-    "invoices": 82,
+    "ledger": 851,
+    "invoices": 81,
     "payments": 42,
     "fx": 282
   },

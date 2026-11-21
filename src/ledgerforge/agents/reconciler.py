@@ -153,9 +153,6 @@ class ReconcilerPolicy:
         payment_rows: dict[str, list[dict[str, Any]]],
     ) -> Iterator[dict[str, Any]]:
         for payment in sorted(self._rows["payments"], key=lambda doc: doc["doc_id"]):
-            # shortcut: checks base-currency remittances only, add FX for foreign allocation faults.
-            if payment["currency"] != self._base:
-                continue
             refs = {ref["invoice_id"]: ref["amount_minor"] for ref in payment["invoice_refs"]}
             actual: dict[str, int] = defaultdict(int)
             advances, stray = [], []

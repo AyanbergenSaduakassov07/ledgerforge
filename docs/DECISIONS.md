@@ -75,7 +75,7 @@ Decision: rename every public id by a salted digit derangement (bijective, shape
 changes); re-run the gate on the renamed episode. Cap `n_invoices` at 100 (worst measured 176 docs) and
 reject any episode outside 200–2000 ledger rows / 20–200 documents in the gate.
 Consequence: renamed ids may coincide with ids of the *other* episode of a pair (harmless). Ledger size
-stays ≈250–600 rows, inside the supported range but not near 2000.
+stays ≈250–600 rows, inside the supported range but not near 2000 (superseded by ADR-016).
 
 ## ADR-015 Allocation faults on any payment currency (generator 0.2.0)
 Context: ADR-008 limited F2 to base-currency payments, and the fault drew its moved amount from the
@@ -88,3 +88,13 @@ was already currency-generic, so the contract and the issue amounts (base curren
 Generator version 0.2.0; open episodes and benchmark outputs were regenerated.
 Consequence: about 27% of allocation faults are now on foreign payments. The reconciler misses those
 (3 false negatives on train + mirror, F1 0.98) and still has no false positives.
+
+## ADR-016 Ledger size scales with difficulty (generator 0.3.0)
+Context: ADR-014 left ledgers at ≈250–600 rows, far from the 2000-row upper bound the spec supports.
+Decision: invoices carry up to 3 / 4 / 5 / 6 line items (basic → expert, `profiles.MAX_LINE_ITEMS`)
+and bank-fee filler tops the ledger up to 200 / 400 / 800 / 1600 rows (`profiles.TARGET_LEDGER_ROWS`,
+plus up to 40). Measured over the open episodes: 226–1638 rows; documents still ≤ 200.
+Consequence: larger ledgers cost list steps (reconciler ≈22–25 inspection steps instead of ≈16) but
+add no new look-alikes, so they do not make labels harder to derive. The reconciler's foreign-payment
+shortcut was removed in the same change (Codex-owned file, one-line deletion, recorded in
+INTEGRATION.md); it again scores F1 1.0, with 0 FP.
