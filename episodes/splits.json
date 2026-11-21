@@ -1,0 +1,191 @@
+{
+ "note": "Open episodes. Regenerate with: uv run ledgerforge release. Truth goes to private/ (git-ignored).",
+ "train": [
+  {
+   "seed": 1000,
+   "config": {}
+  },
+  {
+   "seed": 1001,
+   "config": {
+    "industry": "retail_services",
+    "difficulty": "basic"
+   }
+  },
+  {
+   "seed": 1002,
+   "config": {
+    "faults": {
+     "duplicate_invoice": 1
+    }
+   }
+  },
+  {
+   "seed": 1003,
+   "config": {
+    "faults": {
+     "payment_allocation": 2
+    },
+    "industry": "construction"
+   }
+  },
+  {
+   "seed": 1004,
+   "config": {
+    "faults": {
+     "fx_rate": 1
+    },
+    "base_currency": "USD"
+   }
+  },
+  {
+   "seed": 1005,
+   "config": {
+    "faults": {
+     "reporting_period": 1
+    },
+    "industry": "manufacturing"
+   }
+  },
+  {
+   "seed": 1006,
+   "config": {
+    "interactions": {
+     "duplicate_with_allocation": 1
+    }
+   }
+  },
+  {
+   "seed": 1007,
+   "config": {
+    "interactions": {
+     "fx_with_period": 1
+    },
+    "difficulty": "advanced"
+   }
+  },
+  {
+   "seed": 1008,
+   "config": {
+    "faults": {
+     "duplicate_invoice": 1,
+     "payment_allocation": 1,
+     "fx_rate": 1,
+     "reporting_period": 1
+    },
+    "difficulty": "advanced"
+   }
+  },
+  {
+   "seed": 1009,
+   "config": {
+    "faults": {
+     "duplicate_invoice": 2,
+     "payment_allocation": 2,
+     "fx_rate": 1,
+     "reporting_period": 1
+    },
+    "interactions": {
+     "duplicate_with_allocation": 1,
+     "fx_with_period": 1
+    },
+    "difficulty": "expert",
+    "base_currency": "USD"
+   }
+  }
+ ],
+ "dev": [
+  {
+   "seed": 2000,
+   "config": {}
+  },
+  {
+   "seed": 2001,
+   "config": {
+    "industry": "retail_services",
+    "difficulty": "basic"
+   }
+  },
+  {
+   "seed": 2002,
+   "config": {
+    "faults": {
+     "duplicate_invoice": 1
+    }
+   }
+  },
+  {
+   "seed": 2003,
+   "config": {
+    "faults": {
+     "payment_allocation": 2
+    },
+    "industry": "construction"
+   }
+  },
+  {
+   "seed": 2004,
+   "config": {
+    "faults": {
+     "fx_rate": 1
+    },
+    "base_currency": "EUR"
+   }
+  },
+  {
+   "seed": 2005,
+   "config": {
+    "faults": {
+     "reporting_period": 1
+    },
+    "industry": "manufacturing"
+   }
+  },
+  {
+   "seed": 2006,
+   "config": {
+    "interactions": {
+     "duplicate_with_allocation": 1
+    }
+   }
+  },
+  {
+   "seed": 2007,
+   "config": {
+    "interactions": {
+     "fx_with_period": 1
+    },
+    "difficulty": "advanced"
+   }
+  },
+  {
+   "seed": 2008,
+   "config": {
+    "faults": {
+     "duplicate_invoice": 1,
+     "payment_allocation": 1,
+     "fx_rate": 1,
+     "reporting_period": 1
+    },
+    "difficulty": "advanced"
+   }
+  },
+  {
+   "seed": 2009,
+   "config": {
+    "faults": {
+     "duplicate_invoice": 2,
+     "payment_allocation": 2,
+     "fx_rate": 1,
+     "reporting_period": 1
+    },
+    "interactions": {
+     "duplicate_with_allocation": 1,
+     "fx_with_period": 1
+    },
+    "difficulty": "expert",
+    "base_currency": "EUR"
+   }
+  }
+ ]
+}

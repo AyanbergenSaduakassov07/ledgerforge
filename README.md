@@ -53,10 +53,10 @@ Tools: `list_records`, `get_record`, `get_document`, `calculator`, `submit`. Con
 | Area | State |
 |---|---|
 | Generator, 4 faults + 2 interactions, auditor gate | working; 120/120 gate passes (8 configs × 15 seeds) |
-| Env, 5 tools, evaluator process, matcher, reward | working minimal slice, 120 tests |
+| Env, 5 tools, evaluator process, matcher, reward | working minimal slice, 123 tests |
 | Trajectory log + deterministic replay | working |
 | `id_salt` / `order_salt` metamorphic pairs | working; oracle reward invariant |
-| Released train/dev episode sets | **planned** |
+| Open train/dev episodes (10 + 10) | in `episodes/`, seeds in `episodes/splits.json`; `uv run ledgerforge release` regenerates them and their truth into `private/` |
 | Baselines (random, reconciler, flag-all) and benchmark | **planned** (Codex, see docs/ai/TASKS.md) |
 | Adversarial security suite (spec §11.4) | partial: malformed submissions, step limits, isolation |
 | Docker image | Dockerfile written, **not built yet** |

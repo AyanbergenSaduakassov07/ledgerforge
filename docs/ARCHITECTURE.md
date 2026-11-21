@@ -59,7 +59,7 @@ attempt, mutations, counterfactual) goes to `provenance.json`, never to the agen
 | Deterministic seeds | phase RNGs | `test_generation_is_identical_across_processes` | done |
 | Trajectories + replay | `benchmark/trajectory.py` | `test_trajectory_replays_identically` | done |
 | ID / order metamorphic pairs | `sim/salt.py`, `project()` | `test_metamorphic` | done |
-| 10 train + 10 dev episodes | — | — | **planned** (CL-02) |
+| 10 train + 10 dev episodes | `episodes/`, `cli release` | `test_release` | done |
 | 4 baselines + benchmark + failure analysis | oracle only | — | **planned** (CX-02..05) |
 | Adversarial suite §11.4 | partly | see EVALUATION.md | **partial** (CX-03) |
 | Offline container | `Dockerfile` | — | written, not built |

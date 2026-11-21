@@ -1,0 +1,12 @@
+{
+  "timezone": "Asia/Dubai",
+  "timezone_offset": "+04:00",
+  "recognition_date": "local calendar date of invoice issued_at / payment timestamp at timezone_offset",
+  "period_bounds": "inclusive",
+  "fx_rule": "rate of the recognition date; if fx.csv has no row that date, the most recent earlier row; rate = target units per one source unit",
+  "rounding": "ROUND_HALF_EVEN to the target currency minor unit",
+  "ledger_currency": "all ledger rows are in base_currency",
+  "journal_grouping": "rows group by payment_id, else invoice_id, else timestamp; every group balances",
+  "ap_relief": "AP debit for a payment ref = round_half_even(ref_amount * invoice AP credit / invoice total); remittance amount above the refs goes to supplier advances",
+  "amount_tolerance_minor": 1
+}

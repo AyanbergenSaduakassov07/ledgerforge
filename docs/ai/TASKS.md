@@ -12,7 +12,7 @@ truth renamed identically. Acceptance: for 10 seeds, oracle reward identical wit
 auditor issues map 1:1 through the rename; no salted id equals an unsalted one.
 DoD: `NotImplementedError` removed; CONTRACTS §9 updated. Review: Opus code-reviewer.
 
-### CL-02 Release 10 train + 10 dev episodes — todo
+### CL-02 Release 10 train + 10 dev episodes — done (agent/cl-01; public files + splits.json, truth regenerated into private/ by `ledgerforge release`)
 Files: `episodes/train/`, `episodes/dev/`, `private/` (truth for train/dev committed under
 `episodes/*/truth/` by explicit decision), `cli.py generate`. Deps: CL-01.
 Acceptance: mix of clean, each single fault, both interactions, ≥2 currencies; all pass gate;
