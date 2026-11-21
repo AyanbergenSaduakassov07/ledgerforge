@@ -118,8 +118,26 @@ Matching is one-to-one, so repeated findings count as false positives. Edge case
 | Random explorer | `agents/random_explorer.py` | Seeded control: samples 8 record pages, submits no findings |
 | Flag-all attacker | `agents/flag_all.py` | Submits the maximum number of guessed findings |
 
-Measured results: **pending** (benchmark runner CX-04 in progress). No numbers are claimed until
-they come from committed raw outputs in `outputs/benchmarks/`.
+Measured with `uv run ledgerforge bench`. The table shows means over episodes, taken from the
+committed `outputs/benchmarks/summary.md`. Raw per-episode data is in `metrics.json` and
+`trajectories.jsonl`.
+
+| Policy | dev F1 | dev reward | mirror (20) F1 | mirror reward | steps |
+|---|---:|---:|---:|---:|---:|
+| Oracle (upper bound) | 1.000 | 1.000 | 1.000 | 1.000 | 0 |
+| Reconciler (rule-based) | 1.000 | 0.967 | 1.000 | 0.968 | ≈16 |
+| Random explorer | 0.200 | −0.603 | 0.250 | −0.504 | 8 |
+| Flag-all attacker | 0.000 | −1.000 | 0.000 | −1.000 | 2 |
+
+**How to read this:**
+- The reconciler's perfect F1 is expected and is not evidence of general audit ability. It was
+  written against the same published rules (CONTRACTS §1–3) that the generator and auditor follow,
+  and it can read every row within 16 of its 100 steps. It shows that every label can be derived from
+  public data, which is what the acceptance gate promises.
+- The open challenge is for learned or LLM agents that do not have these rules hard-coded.
+- The random explorer scores F1 > 0 only on clean episodes, where an empty submission is correct.
+- The mirror split is the local closed-eval mirror (≥5 clean, ≥5 interacting). Its 20 paired
+  id/order transforms passed replay and oracle-reward invariance.
 
 ## Replay and benchmark
 
@@ -127,7 +145,7 @@ they come from committed raw outputs in `outputs/benchmarks/`.
 uv run ledgerforge demo --count 3   # oracle episodes → outputs/trajectories/demo.jsonl, replayed and compared
 ```
 
-Benchmark command: pending CX-04.
+uv run ledgerforge bench            # all 4 policies on train/dev/mirror + 20 metamorphic pairs → outputs/benchmarks/
 
 ## Demonstration
 
@@ -162,7 +180,7 @@ None. Official verification needs no cloud gateway, frontend or API key.
 | 10 train + 10 dev episodes | Implemented; byte-identical regeneration tested |
 | 4 baseline policies | Implemented, tested |
 | Adversarial suite (flag-all, permutations, malformed, limits) | Implemented, tested |
-| Benchmark runner + `trajectories.jsonl` | In progress |
+| Benchmark runner + `trajectories.jsonl` | Implemented; rerun reproduces all scores (runtimes vary) |
 | Docker image | Not verified |
 
 Test count: run `uv run pytest -q`.
@@ -180,6 +198,8 @@ other projects. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). License: M
 - The agent and the evaluator run as the same OS user. Isolation is a process boundary, not a
   sandbox ([docs/SECURITY.md](docs/SECURITY.md)).
 - Allocation faults cover base-currency payments only.
+- A rule-based policy that encodes the published rules saturates the current benchmark (F1 1.0).
+  Harder look-alikes, or making ledgers less complete within the step budget, would be the next lever.
 - Synthetic books follow one AP-centric chart of accounts and do not cover revenue, payroll or tax.
 
 ## Reproduce
