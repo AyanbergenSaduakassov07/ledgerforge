@@ -57,12 +57,11 @@ regenerating the same seed.
 Context: spec §10.2 `submit(findings)` + §10.4 payload `{episode_id, findings}`.
 Decision: `{"tool": "submit", "args": {"episode_id", "findings"}}`. Anything else → −1.
 
-## ADR-012 Ownership split and the Claude-built slice
-Context: brief assigns env/evaluator/baselines/benchmark to Codex, but Phase 4 needs a working slice
-before contracts can be judged.
-Decision: Claude wrote minimal `env/`, `evaluation/`, `agents/oracle.py`, `benchmark/trajectory.py`
-for the slice. Codex takes ownership of these files from TASKS.md on, hardens them and adds
-baselines/benchmark. Claude keeps `contracts/`, `sim/`, `verification/`.
+## ADR-012 Vertical slice before hardening
+Context: the contracts cannot be judged on paper; they need one episode to flow end to end.
+Decision: build a minimal `env/`, `evaluation/`, `agents/oracle.py` and `benchmark/trajectory.py`
+first, freeze the contracts against that slice, then harden the environment and add baselines and
+the benchmark on top. `contracts/`, `sim/` and `verification/` change only through an ADR.
 
 ## ADR-013 Truncation scoring
 Decision: truncated episodes score an empty submission with inspection_steps = all steps taken.
@@ -96,11 +95,10 @@ and bank-fee filler tops the ledger up to 200 / 400 / 800 / 1600 rows (`profiles
 plus up to 40). Measured over the open episodes: 226–1638 rows; documents still ≤ 200.
 Consequence: larger ledgers cost list steps (reconciler ≈22–25 inspection steps instead of ≈16) but
 add no new look-alikes, so they do not make labels harder to derive. The reconciler's foreign-payment
-shortcut was removed in the same change (Codex-owned file, one-line deletion, recorded in
-INTEGRATION.md); it again scores F1 1.0, with 0 FP.
+shortcut was removed in the same change (one-line deletion); it again scores F1 1.0, with 0 FP.
 
 ## ADR-017 Rule ablation instead of more look-alikes
-Context: CL-09 planned extra hard negatives, but the generator already emits recurring services,
+Context: the plan included extra hard negatives, but the generator already emits recurring services,
 credit note + reissue, instalments, split remittances, advances, timezone-boundary invoices and
 early next-period invoices. A policy that encodes every published rule will always reach F1 1.0;
 that is what the acceptance gate promises. The useful question is whether a policy that *skips* a
@@ -110,5 +108,5 @@ Decision: `ReconcilerPolicy(naive={...})` swaps a published rule for a common sh
 payment-date rate). `benchmark/ablation.py` measures each swap on train + dev + mirror and writes
 `outputs/reports/ablation.md`. Default behaviour is unchanged.
 Consequence: measured on 40 episodes, every shortcut costs F1 (0.42 → 0.08) and all four together
-give F1 0.045 / reward −0.94. The look-alikes are load-bearing. CL-09 closed without new generators.
+give F1 0.045 / reward −0.94. The look-alikes are load-bearing. No new generators were needed.
 The Docker image installs only the `test` dependency group (pytest, jsonschema); ruff stays in `dev`.

@@ -60,7 +60,7 @@ attempt, mutations, counterfactual) goes to `provenance.json`, never to the agen
 | Trajectories + replay | `benchmark/trajectory.py` | `test_trajectory_replays_identically` | done |
 | ID / order metamorphic pairs | `sim/salt.py`, `project()` | `test_metamorphic` | done |
 | 10 train + 10 dev episodes | `episodes/`, `cli release` | `test_release` | done |
-| 4 baselines + benchmark + failure analysis | oracle only | — | **planned** (CX-02..05) |
-| Adversarial suite §11.4 | partly | see EVALUATION.md | **partial** (CX-03) |
-| Offline container | `Dockerfile` | — | written, not built |
+| 4 baselines + benchmark + failure analysis | `agents/`, `benchmark/` | `test_baselines`, `test_benchmark` | done |
+| Adversarial suite | `tests/test_adversarial.py` | see EVALUATION.md | done |
+| Offline container | `Dockerfile` | `docker run --network none` | done |
 - Design note: [DESIGN_NOTE.md](DESIGN_NOTE.md)

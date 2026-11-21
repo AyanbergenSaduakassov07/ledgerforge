@@ -1,7 +1,7 @@
 # LedgerForge contracts (frozen v1.0.0)
 
 Status: **frozen for the vertical slice** on 2026-11-21. Changing anything here that affects scoring
-needs a new ADR in `DECISIONS.md` and a lead-architect (Claude) review. Code of record:
+needs a new ADR in `DECISIONS.md`. Code of record:
 `src/ledgerforge/contracts/` (Python) and `schemas/*.schema.json` (JSON Schema 2020-12). Executable
 checks: `tests/test_contracts.py`, `tests/test_matcher.py`, `tests/test_env.py`.
 

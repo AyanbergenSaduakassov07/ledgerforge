@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="344" viewBox="0 0 780 344" role="img" aria-label="Skipping one published rule breaks the benchmark">
+<title>Skipping one published rule breaks the benchmark</title>
+<style>
+.card{fill:#f6f8fa;stroke:#d0d7de}.fg{fill:#1f2328}.mu{fill:#59636e}.gr{stroke:#d0d7de}
+@media (prefers-color-scheme:dark){.card{fill:#161b22;stroke:#30363d}.fg{fill:#e6edf3}
+.mu{fill:#9198a1}.gr{stroke:#30363d}}
+text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.t{font-size:18px;font-weight:600}.s{font-size:12px}.v{font-size:11px;font-weight:600}
+</style>
+<rect class="card" x="0.5" y="0.5" width="779" height="343" rx="12"/>
+<text class="fg t" x="24" y="36">Skipping one published rule breaks the benchmark</text>
+<text class="mu s" x="24" y="56">Reconciler F1 on 40 episodes when a rule is swapped for a shallow heuristic</text>
+<line class="gr" x1="180.0" x2="180.0" y1="74" y2="308"/>
+<text class="mu s" x="180.0" y="324.0" text-anchor="middle">0.00</text>
+<line class="gr" x1="275.0" x2="275.0" y1="74" y2="308"/>
+<text class="mu s" x="275.0" y="324.0" text-anchor="middle">0.25</text>
+<line class="gr" x1="370.0" x2="370.0" y1="74" y2="308"/>
+<text class="mu s" x="370.0" y="324.0" text-anchor="middle">0.50</text>
+<line class="gr" x1="465.0" x2="465.0" y1="74" y2="308"/>
+<text class="mu s" x="465.0" y="324.0" text-anchor="middle">0.75</text>
+<line class="gr" x1="560.0" x2="560.0" y1="74" y2="308"/>
+<text class="mu s" x="560.0" y="324.0" text-anchor="middle">1.00</text>
+<text class="fg s" x="168.0" y="101.0" text-anchor="end">All published rules</text>
+<rect x="180" y="87" width="380.0" height="22" rx="4" fill="#10b981"/>
+<text class="fg v" x="568.0" y="102.0" text-anchor="start">F1 1.000 · 0 FP · reward +0.95</text>
+<text class="fg s" x="168.0" y="139.0" text-anchor="end">Naive duplicates</text>
+<rect x="180" y="125" width="158.8" height="22" rx="4" fill="#f59e0b"/>
+<text class="fg v" x="346.8" y="140.0" text-anchor="start">F1 0.418 · 120 FP · reward -0.20</text>
+<text class="fg s" x="168.0" y="177.0" text-anchor="end">Naive period</text>
+<rect x="180" y="163" width="185.1" height="22" rx="4" fill="#f59e0b"/>
+<text class="fg v" x="373.1" y="178.0" text-anchor="start">F1 0.487 · 81 FP · reward -0.06</text>
+<text class="fg s" x="168.0" y="215.0" text-anchor="end">Naive FX</text>
+<rect x="180" y="201" width="31.5" height="22" rx="4" fill="#ef4444"/>
+<text class="fg v" x="219.5" y="216.0" text-anchor="start">F1 0.083 · 888 FP · reward -0.87</text>
+<text class="fg s" x="168.0" y="253.0" text-anchor="end">Naive allocation</text>
+<rect x="180" y="239" width="75.6" height="22" rx="4" fill="#ef4444"/>
+<text class="fg v" x="263.6" y="254.0" text-anchor="start">F1 0.199 · 469 FP · reward -0.64</text>
+<text class="fg s" x="168.0" y="291.0" text-anchor="end">All four shortcuts</text>
+<rect x="180" y="277" width="17.1" height="22" rx="4" fill="#ef4444"/>
+<text class="fg v" x="205.1" y="292.0" text-anchor="start">F1 0.045 · 1101 FP · reward -0.94</text>
+</svg>

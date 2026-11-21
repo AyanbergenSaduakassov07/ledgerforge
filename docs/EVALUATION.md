@@ -27,9 +27,9 @@ not change. Inspection steps = non-submit steps; on truncation all steps.
 | Order invariance of equivalent submissions | `test_adversarial::test_reward_is_invariant_across_twenty_finding_permutations` | done |
 | Persuasive explanation can't rescue a wrong amount | `test_adversarial::test_persuasive_explanation_does_not_rescue_a_wrong_amount` | done |
 
-## Benchmark (planned, Codex)
+## Benchmark
 
 Policies: random explorer, simple reconciler, flag-all attacker, evaluator-side oracle. Data: 10
 train, 10 dev, local closed-eval mirror of 20 (≥5 clean, ≥5 interacting) + 20 paired id/order
 transforms. Per policy report precision, recall, F1, reward, steps, runtime, failure categories —
-measured only, from committed raw outputs in `outputs/benchmarks/`.
+measured only, from committed raw outputs in `outputs/benchmarks/` (`make bench`).
