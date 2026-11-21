@@ -71,3 +71,8 @@ Commands: `make verify` → ruff clean, pytest all passed (count in commit messa
 - Ledger size scales with difficulty (226–1638 rows over the open episodes).
 - Removed the reconciler's foreign-payment skip in `agents/reconciler.py` (Codex-owned; three-line deletion, no other change). Reconciler test restored to exact (tp, 0, 0).
 - Benchmark: reconciler F1 1.000 on train/dev/mirror, reward 0.950–0.956.
+
+## cl-09 rule ablation (ADR-017)
+- The user handed the remaining Codex scope to Claude. `agents/reconciler.py` gained a `naive` constructor flag (default unchanged); new `benchmark/ablation.py`, `tests/test_ablation.py`, `outputs/reports/ablation.md`, Makefile `bench` and `ablation` targets.
+- Ablation on 40 episodes: reconciler F1 1.000; naive duplicates 0.418, period 0.487, FX 0.083, allocation 0.199, all four 0.045.
+- Docker installs only the new `test` dependency group (ruff downloads stalled the build).

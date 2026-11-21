@@ -67,6 +67,10 @@ dev = [
     { name = "pytest" },
     { name = "ruff" },
 ]
+test = [
+    { name = "jsonschema" },
+    { name = "pytest" },
+]
 
 [package.metadata]
 
@@ -75,6 +79,10 @@ dev = [
     { name = "jsonschema" },
     { name = "pytest" },
     { name = "ruff" },
+]
+test = [
+    { name = "jsonschema" },
+    { name = "pytest" },
 ]
 
 [[package]]

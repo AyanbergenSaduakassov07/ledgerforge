@@ -7,6 +7,6 @@ COPY src ./src
 COPY tests ./tests
 COPY schemas ./schemas
 COPY episodes ./episodes
-RUN uv sync --frozen
+RUN uv sync --frozen --no-default-groups --group test
 COPY Makefile ./
-CMD ["sh", "-c", "uv run ruff --version >/dev/null && uv run pytest -q && uv run ledgerforge demo --count 3"]
+CMD ["sh", "-c", "uv run --no-sync pytest -q && uv run --no-sync ledgerforge demo --count 3"]
