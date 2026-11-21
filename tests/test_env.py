@@ -176,3 +176,27 @@ def test_wrong_config_type_is_an_error_not_a_dead_evaluator(env):
         env.reset(1, {"interactions": ["fx_with_period"]})
     obs, _ = env.reset(1)  # the same evaluator process still serves episodes
     assert obs["steps_remaining"] == MAX_STEPS
+
+
+def test_reset_observation_cannot_edit_manifest_or_policy(env) -> None:
+    initial, _ = env.reset(1)
+    ledger_count = initial["manifest"]["counts"]["ledger"]
+    timezone = initial["policy"]["timezone_offset"]
+    initial["manifest"]["counts"]["ledger"] = 0
+    initial["policy"]["timezone_offset"] = "display label"
+
+    manifest, *_ = env.step({"tool": "get_document", "args": {"doc_id": "manifest"}})
+    policy, *_ = env.step({"tool": "get_document", "args": {"doc_id": "policy"}})
+    assert manifest["result"]["counts"]["ledger"] == ledger_count
+    assert policy["result"]["timezone_offset"] == timezone
+
+
+def test_tool_results_cannot_edit_a_later_document_lookup(env) -> None:
+    env.reset(1)
+    listing, *_ = env.step({"tool": "list_records", "args": {"table": "invoices", "limit": 1}})
+    row = listing["result"]["rows"][0]
+    original = row["line_items"][0]["description"]
+    row["line_items"][0]["description"] += " (display annotation)"
+
+    document, *_ = env.step({"tool": "get_document", "args": {"doc_id": row["doc_id"]}})
+    assert document["result"]["line_items"][0]["description"] == original

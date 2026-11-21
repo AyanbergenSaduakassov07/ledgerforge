@@ -90,9 +90,11 @@ def cmd_demo(a: argparse.Namespace) -> int:
 def cmd_bench(a: argparse.Namespace) -> int:
     from ledgerforge.benchmark.run import run_benchmark
 
-    passed = run_benchmark(Path(a.splits), Path(a.out))
+    if not run_benchmark(Path(a.splits), Path(a.out)):
+        log.error("benchmark paired checks failed. Existing reports were preserved.")
+        return 1
     log.info("benchmark reports -> %s", a.out)
-    return 0 if passed else 1
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:

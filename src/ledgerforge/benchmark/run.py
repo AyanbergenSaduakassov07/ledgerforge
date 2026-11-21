@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from statistics import fmean
+from tempfile import TemporaryDirectory
 from time import perf_counter
 from typing import Any, TextIO
 
@@ -210,23 +211,29 @@ def run_benchmark(splits_path: Path, output: Path) -> bool:
     plan = json.loads(splits_path.read_text(encoding="utf-8"))
     cases = {"train": plan["train"], "dev": plan["dev"], "mirror": mirror_cases()}
     output.mkdir(parents=True, exist_ok=True)
-    with (output / "trajectories.jsonl").open("w", encoding="utf-8") as stream:
-        results = {split: _run_split(split, rows, stream) for split, rows in cases.items()}
-    env = AuditEnv("train")
-    try:
-        pairs = [_check_pair(env, case) for case in cases["mirror"]]
-    finally:
-        env.close()
-    passed = sum(all(pair["checks"].values()) for pair in pairs)
-    data = {
-        "schema_version": SCHEMA_VERSION,
-        "generator_version": GENERATOR_VERSION,
-        "cases": cases,
-        "splits": results,
-        "pairs": pairs,
-    }
-    (output / "metrics.json").write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
-    (output / "summary.md").write_text(
-        _summary_markdown(results, passed, len(pairs)), encoding="utf-8"
-    )
-    return passed == len(pairs)
+    with TemporaryDirectory(prefix=".benchmark-", dir=output) as temporary:
+        staged = Path(temporary)
+        with (staged / "trajectories.jsonl").open("w", encoding="utf-8") as stream:
+            results = {split: _run_split(split, rows, stream) for split, rows in cases.items()}
+        env = AuditEnv("train")
+        try:
+            pairs = [_check_pair(env, case) for case in cases["mirror"]]
+        finally:
+            env.close()
+        if not all(all(pair["checks"].values()) for pair in pairs):
+            return False
+
+        data = {
+            "schema_version": SCHEMA_VERSION,
+            "generator_version": GENERATOR_VERSION,
+            "cases": cases,
+            "splits": results,
+            "pairs": pairs,
+        }
+        (staged / "metrics.json").write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+        (staged / "summary.md").write_text(
+            _summary_markdown(results, len(pairs), len(pairs)), encoding="utf-8"
+        )
+        for name in ("trajectories.jsonl", "metrics.json", "summary.md"):
+            (staged / name).replace(output / name)
+    return True
