@@ -24,13 +24,13 @@ Files: `tests/test_generator.py`. Acceptance: expert + n_invoices=150 + 12 error
 
 ## Codex (environment, evaluator, baselines, benchmark)
 
-### CX-01 Take ownership + harden env/evaluator — todo
+### CX-01 Take ownership + harden env/evaluator — done (agent/cx-01, merged)
 Files: `env/env.py`, `evaluation/service.py`, `tests/test_env.py`. Deps: contracts frozen (done).
 Work: evaluator crash/timeout handling (dead pipe → clean error, no hang); test the 60 s limit with an
 injected clock; `get_document` arg validation messages; close() idempotent.
 Acceptance: new tests for each; existing tests unchanged and green. Review: Claude.
 
-### CX-02 Baseline policies — todo
+### CX-02 Baseline policies — done (agent/cx-02, merged via cx-03)
 Files: `agents/random_explorer.py`, `agents/reconciler.py`, `agents/flag_all.py`,
 `tests/test_baselines.py`. Deps: CX-01.
 I/O: `AgentPolicy` protocol (`contracts/schemas.py`): `reset(obs)`, `act(obs) -> EnvAction`, public data only.
@@ -38,13 +38,13 @@ Reconciler uses only tool calls (no truth, no `sim/` imports). Acceptance: each 
 within 100 steps on 5 seeds; deterministic given seed; import-guard test that none imports
 `sim`/`verification`/`evaluation`. Review: Claude.
 
-### CX-03 Adversarial suite (spec §11.4 rest) — todo
+### CX-03 Adversarial suite (spec §11.4 rest) — done (agent/cx-03, merged)
 Files: `tests/test_adversarial.py`. Deps: CX-02.
 Acceptance: flag-all mean reward < 0 over 10 faulted + 5 clean seeds; shuffled-finding-order
 submissions give identical reward (property test over 20 permutations); submissions with
 persuasive explanations but wrong amount get FP. Review: Claude.
 
-### CX-04 Benchmark runner — todo
+### CX-04 Benchmark runner — in progress (Codex)
 Files: `benchmark/run.py`, `cli.py bench`, `outputs/benchmarks/`. Deps: CX-02, CL-02.
 Out: per policy × split JSON + trajectories.jsonl (spec §12 fields) + markdown table of precision,
 recall, F1, reward, steps, runtime. Acceptance: rerun gives identical numbers (except runtime);
