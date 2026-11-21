@@ -110,3 +110,11 @@ payment-date rate). `benchmark/ablation.py` measures each swap on train + dev + 
 Consequence: measured on 40 episodes, every shortcut costs F1 (0.42 → 0.08) and all four together
 give F1 0.045 / reward −0.94. The look-alikes are load-bearing. No new generators were needed.
 The Docker image installs only the `test` dependency group (pytest, jsonschema); ruff stays in `dev`.
+
+## ADR-018 Currency exponents in the manifest (generator 0.4.0)
+Context: spec section 03 defines money as integer minor units with the currency's exponent, but the
+exponents lived only in CONTRACTS.md and `CURRENCY_EXPONENTS`.
+Decision: `manifest.json` carries `currency_exponents` for every currency in the episode, taken from
+`CURRENCY_EXPONENTS`; `schemas/manifest.schema.json` requires it. `money.convert` accepts an
+optional exponent map and the reconciler passes the manifest's map. Generator 0.3.0 → 0.4.0.
+Consequence: open episodes are regenerated (manifest only; ledger and documents are unchanged).

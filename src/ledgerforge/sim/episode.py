@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from ledgerforge.contracts.schemas import (
+    CURRENCY_EXPONENTS,
     GENERATOR_VERSION,
     SCHEMA_VERSION,
     PrivateTruthBundle,
@@ -57,11 +58,14 @@ def project(w: World) -> PublicEpisode:
         r.shuffle(invoices)
         r.shuffle(payments)
     fx = sorted(w.fx_rows, key=lambda x: (x["date"], x["source_currency"]))
+    currencies = {w.base} | {d["currency"] for d in invoices + payments}
+    currencies |= {x[k] for x in fx for k in ("source_currency", "target_currency")}
     manifest = {
         "schema_version": SCHEMA_VERSION,
         "generator_version": GENERATOR_VERSION,
         "episode_id": w.episode_id,
         "base_currency": w.base,
+        "currency_exponents": {c: CURRENCY_EXPONENTS[c] for c in sorted(currencies)},
         "period_start": w.start,
         "period_end": w.end,
         "timezone": w.tz_name,

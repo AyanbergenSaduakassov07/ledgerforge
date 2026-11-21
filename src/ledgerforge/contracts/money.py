@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import bisect
+from collections.abc import Mapping
 from datetime import date, datetime, timedelta, timezone
 from decimal import ROUND_HALF_EVEN, Decimal
 
@@ -46,8 +47,16 @@ def in_period(day: str, start: str, end: str) -> bool:
     return start <= day <= end  # ISO dates compare lexicographically
 
 
-def convert(amount_minor: int, source: str, target: str, rate: str) -> int:
-    scale = Decimal(10) ** (CURRENCY_EXPONENTS[target] - CURRENCY_EXPONENTS[source])
+def convert(
+    amount_minor: int,
+    source: str,
+    target: str,
+    rate: str,
+    exponents: Mapping[str, int] | None = None,
+) -> int:
+    """`exponents`: the manifest `currency_exponents`; defaults to the contract table."""
+    exp = CURRENCY_EXPONENTS if exponents is None else exponents
+    scale = Decimal(10) ** (exp[target] - exp[source])
     value = Decimal(amount_minor) * Decimal(rate) * scale
     return int(value.quantize(Decimal(1), rounding=ROUND_HALF_EVEN))
 

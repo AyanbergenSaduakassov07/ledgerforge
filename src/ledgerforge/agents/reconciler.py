@@ -44,6 +44,7 @@ class ReconcilerPolicy:
         self._manifest = observation["manifest"]
         self._timezone = observation["policy"]["timezone_offset"]
         self._base = self._manifest["base_currency"]
+        self._exponents = self._manifest.get("currency_exponents")  # None -> contract table
         self._tables = iter(TABLES)
         self._table: str | None = None
         self._rows: dict[str, list[dict[str, Any]]] = {table: [] for table in TABLES}
@@ -115,7 +116,9 @@ class ReconcilerPolicy:
             rate = fx.effective(currency, self._base, rate_day) if currency != self._base else None
             if rate is not None:
                 rate_id, rate_value = rate
-                expected = convert(invoice["total_minor"], currency, self._base, rate_value)
+                expected = convert(
+                    invoice["total_minor"], currency, self._base, rate_value, self._exponents
+                )
                 if expected != booked:
                     yield self._finding(
                         FX_RATE,
@@ -217,7 +220,7 @@ class ReconcilerPolicy:
         rate = self._fx().effective(payment["currency"], self._base, day)
         if rate is None:  # the generator always publishes a covering rate; fail loudly if not
             raise ValueError(f"no FX rate for {payment['currency']} on or before {day}")
-        return convert(amount, payment["currency"], self._base, rate[1])
+        return convert(amount, payment["currency"], self._base, rate[1], self._exponents)
 
     def _fx(self) -> FxTable:
         if self._fx_table is None:

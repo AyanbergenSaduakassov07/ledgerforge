@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from typing import Any, Protocol
 
 SCHEMA_VERSION = "1.0.0"
-GENERATOR_VERSION = "0.3.0"
+GENERATOR_VERSION = "0.4.0"
 
 # --- Error types (official four) -------------------------------------------------------------
 DUPLICATE_INVOICE = "duplicate_invoice"
