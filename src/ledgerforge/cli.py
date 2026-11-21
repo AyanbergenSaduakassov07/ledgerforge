@@ -37,6 +37,19 @@ def cmd_generate(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_release(a: argparse.Namespace) -> int:
+    """Regenerate the open train/dev episodes listed in episodes/splits.json."""
+    plan = json.loads(Path(a.splits).read_text())
+    for split in ("train", "dev"):
+        for item in plan[split]:
+            public, truth = generate_episode(item["seed"], ScenarioConfig.from_dict(item["config"]))
+            name = public.manifest["episode_id"]
+            write_public(public, Path(a.out) / split / name)
+            write_private(truth, Path(a.private) / split / name)
+            log.info("%s %s seed=%d issues=%d", split, name, item["seed"], len(truth.issues))
+    return 0
+
+
 def cmd_audit(a: argparse.Namespace) -> int:
     result = audit(read_public(Path(a.path)).to_dict())
     json.dump({"issues": result.issues, "violations": result.violations}, sys.stdout, indent=2)
@@ -85,6 +98,11 @@ def main(argv: list[str] | None = None) -> int:
     g.add_argument("--out", default="episodes/generated")
     g.add_argument("--private", default="private/generated")
     g.set_defaults(fn=cmd_generate)
+    rel = sub.add_parser("release", help="regenerate open train/dev episodes from splits.json")
+    rel.add_argument("--splits", default="episodes/splits.json")
+    rel.add_argument("--out", default="episodes")
+    rel.add_argument("--private", default="private")
+    rel.set_defaults(fn=cmd_release)
     au = sub.add_parser("audit", help="independent audit of a public episode directory")
     au.add_argument("path")
     au.set_defaults(fn=cmd_audit)

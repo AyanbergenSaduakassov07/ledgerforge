@@ -132,4 +132,9 @@ Each generation phase uses `random.Random(f"ledgerforge:{seed}:{attempt}:{phase}
 SHA-512 hashed by CPython, independent of `PYTHONHASHSEED`). Acceptance-gate failures retry with
 `attempt+1` (≤20). `episode_id` comes from the RNG and does not contain the seed. Same seed + config →
 byte-identical public and private data (tested across processes). Config `order_salt` reshuffles
-public table order; `id_salt` (rename all ids) is **planned**, currently raises `NotImplementedError`.
+public table order; `id_salt` renames every public id (doc, invoice, payment, row, entity, episode)
+with a salted digit derangement — shape-preserving, bijective, fx ids unchanged; truth is renamed
+identically and the renamed episode re-passes the gate (`sim/salt.py`, `tests/test_metamorphic.py`).
+Provenance mutation records keep the unsalted ids.
+
+Size gate: an episode ships only with 200–2000 ledger rows and 20–200 documents; `n_invoices` ≤ 100.

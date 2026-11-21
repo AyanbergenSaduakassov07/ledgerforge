@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "generator_version": "0.1.0",
+  "episode_id": "EP-c4de9a63d556",
+  "base_currency": "KZT",
+  "period_start": "2025-10-01",
+  "period_end": "2025-12-31",
+  "timezone": "Asia/Baku",
+  "counts": {
+    "ledger": 268,
+    "invoices": 59,
+    "payments": 33,
+    "fx": 384
+  },
+  "rounding": "ROUND_HALF_EVEN"
+}

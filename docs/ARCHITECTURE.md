@@ -45,7 +45,7 @@ attempt, mutations, counterfactual) goes to `provenance.json`, never to the agen
 
 | Requirement (spec / PDF) | Implementation | Test | Status |
 |---|---|---|---|
-| 1 company, 1 period, 200–2000 rows, 20–200 docs, 0–12 errors | `sim/world.py`, `ScenarioConfig.validate` | `test_generator`, `test_contracts::test_invalid_configs_rejected` | done (upper size ranges untested) |
+| 1 company, 1 period, 200–2000 rows, 20–200 docs, 0–12 errors | `sim/world.py`, `ScenarioConfig.validate` | `test_generator`, `test_contracts::test_invalid_configs_rejected` | done; size gate + `test_largest_episode_fits_official_ranges_and_budget` |
 | 4 error types independently configurable | `sim/faults.py` | `test_truth_equals_independent_audit` | done |
 | 2 interacting-error scenarios | `duplicate_with_allocation`, `reporting_period(foreign, wrong_rate)` | same | done |
 | Clean companies, distractors | `world._distractors` | clean config in generator tests | done |
@@ -58,8 +58,8 @@ attempt, mutations, counterfactual) goes to `provenance.json`, never to the agen
 | Closed eval withholds reward | `Evaluator("eval")`, env | `test_env` | done |
 | Deterministic seeds | phase RNGs | `test_generation_is_identical_across_processes` | done |
 | Trajectories + replay | `benchmark/trajectory.py` | `test_trajectory_replays_identically` | done |
-| ID / order metamorphic pairs | `order_salt` done, `id_salt` | — | **planned** (CL-01) |
-| 10 train + 10 dev episodes | — | — | **planned** (CL-02) |
+| ID / order metamorphic pairs | `sim/salt.py`, `project()` | `test_metamorphic` | done |
+| 10 train + 10 dev episodes | `episodes/`, `cli release` | `test_release` | done |
 | 4 baselines + benchmark + failure analysis | oracle only | — | **planned** (CX-02..05) |
 | Adversarial suite §11.4 | partly | see EVALUATION.md | **partial** (CX-03) |
 | Offline container | `Dockerfile` | — | written, not built |
