@@ -53,9 +53,9 @@ Tools: `list_records`, `get_record`, `get_document`, `calculator`, `submit`. Con
 | Area | State |
 |---|---|
 | Generator, 4 faults + 2 interactions, auditor gate | working; 120/120 gate passes (8 configs × 15 seeds) |
-| Env, 5 tools, evaluator process, matcher, reward | working minimal slice, 104 tests |
+| Env, 5 tools, evaluator process, matcher, reward | working minimal slice, 120 tests |
 | Trajectory log + deterministic replay | working |
-| `id_salt` metamorphic renaming | **planned** (raises `NotImplementedError`) |
+| `id_salt` / `order_salt` metamorphic pairs | working; oracle reward invariant |
 | Released train/dev episode sets | **planned** |
 | Baselines (random, reconciler, flag-all) and benchmark | **planned** (Codex, see docs/ai/TASKS.md) |
 | Adversarial security suite (spec §11.4) | partial: malformed submissions, step limits, isolation |

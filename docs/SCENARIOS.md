@@ -7,12 +7,12 @@ Config = `ScenarioConfig` (`contracts/schemas.py`); unknown keys are rejected.
 | `industry` | industrial_procurement, construction, manufacturing, retail_services | industrial_procurement |
 | `difficulty` | basic 30 / intermediate 50 / advanced 70 / expert 100 invoices | intermediate |
 | `base_currency` | any supported (KZT, USD, EUR, RUB, CNY, JPY, KWD) | KZT |
-| `n_invoices` | 20..150 overrides difficulty | null |
+| `n_invoices` | 20..100 overrides difficulty (keeps docs ≤ 200) | null |
 | `faults` | `{type: count}` for the four types | `{}` (clean) |
 | `interactions` | `{duplicate_with_allocation \| fx_with_period: count}`; each yields 2 issues | `{}` |
 | `distractors` | bool | true |
 | `order_salt` | string: reshuffle public table order | null |
-| `id_salt` | string: rename every id | null, **planned** |
+| `id_salt` | string: rename every id (digit derangement) | null |
 
 Total issues = Σ faults + 2·Σ interactions ≤ 12.
 

@@ -99,6 +99,8 @@ def fx_id(date: str, source: str, target: str) -> str:
 # --- Scenario configuration -------------------------------------------------------------------
 DIFFICULTIES = ("basic", "intermediate", "advanced", "expert")
 INDUSTRIES = ("industrial_procurement", "construction", "manufacturing", "retail_services")
+# Keeps documents (invoices incl. faults/distractors + payments) within the official 200.
+MAX_INVOICES = 100
 DEFAULT_INVOICES = {"basic": 30, "intermediate": 50, "advanced": 70, "expert": 100}
 
 
@@ -135,8 +137,8 @@ class ScenarioConfig:
             raise ValueError(f"difficulty must be one of {DIFFICULTIES}")
         if self.base_currency not in CURRENCY_EXPONENTS:
             raise ValueError(f"base_currency must be one of {sorted(CURRENCY_EXPONENTS)}")
-        if self.n_invoices is not None and not 20 <= self.n_invoices <= 150:
-            raise ValueError("n_invoices must be in 20..150")
+        if self.n_invoices is not None and not 20 <= self.n_invoices <= MAX_INVOICES:
+            raise ValueError(f"n_invoices must be in 20..{MAX_INVOICES}")
         for key, n in self.faults.items():
             if key not in ERROR_TYPES or not isinstance(n, int) or n < 0:
                 raise ValueError(f"bad fault entry {key}={n}")

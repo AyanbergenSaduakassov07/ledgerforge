@@ -13,10 +13,13 @@ from ledgerforge.contracts.schemas import (
     TruthIssue,
 )
 from ledgerforge.sim.faults import NoCandidate, inject
+from ledgerforge.sim.salt import salt_public, salt_spec
 from ledgerforge.sim.world import World, build_world
 from ledgerforge.verification.auditor import audit, issue_key
 
 MAX_ATTEMPTS = 20
+LEDGER_ROWS = (200, 2000)  # official episode ranges
+DOCS = (20, 200)
 
 
 class GenerationFailed(RuntimeError):
@@ -76,6 +79,9 @@ def project(w: World) -> PublicEpisode:
 def _gate(public: PublicEpisode, specs: list[dict[str, Any]]) -> list[str]:
     result = audit(public.to_dict())
     problems = list(result.violations)
+    docs = len(public.invoices) + len(public.payments)
+    if not (LEDGER_ROWS[0] <= len(public.ledger) <= LEDGER_ROWS[1] and DOCS[0] <= docs <= DOCS[1]):
+        problems.append(f"size out of official range: ledger={len(public.ledger)} docs={docs}")
     truth = {issue_key(s) for s in specs}
     if result.keys() != truth:
         problems.append(
@@ -101,9 +107,6 @@ def generate_episode(
 ) -> tuple[PublicEpisode, PrivateTruthBundle]:
     config = config or ScenarioConfig()
     config.validate()
-    if config.id_salt:
-        # shortcut: id renaming transform not built yet; needed for the paired ID checks.
-        raise NotImplementedError("id_salt is not implemented yet")
     failures: list[str] = []
     for attempt in range(MAX_ATTEMPTS):
         w = build_world(seed, config, attempt)
@@ -113,6 +116,11 @@ def generate_episode(
             failures.append(f"attempt {attempt}: {e}")
             continue
         public = project(w)
+        episode_id = w.episode_id
+        if config.id_salt:
+            public, mapping = salt_public(public, config.id_salt)
+            specs = [salt_spec(s, mapping) for s in specs]
+            episode_id = public.manifest["episode_id"]
         problems = _gate(public, specs)
         if problems:
             failures.append(f"attempt {attempt}: {problems[:3]}")
@@ -136,5 +144,5 @@ def generate_episode(
             "generator_version": GENERATOR_VERSION,
             "mutations": [s["provenance"] for s in specs],
         }
-        return public, PrivateTruthBundle(w.episode_id, issues, provenance)
+        return public, PrivateTruthBundle(episode_id, issues, provenance)
     raise GenerationFailed(f"seed {seed}: {failures[-3:]}")

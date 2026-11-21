@@ -67,3 +67,12 @@ baselines/benchmark. Claude keeps `contracts/`, `sim/`, `verification/`.
 ## ADR-013 Truncation scoring
 Decision: truncated episodes score an empty submission with inspection_steps = all steps taken.
 On a clean episode that gives `1 − 0.002·100 = 0.8`; on a faulted one −1 (clipped).
+
+## ADR-014 id_salt is a digit derangement; size gate
+Context: paired ID transforms must be equivalent problems; a hash rename would erase duplicate-variant
+cues (`-1`, `A`) and make the salted twin harder. `n_invoices=150` produced 243 documents (> 200).
+Decision: rename every public id by a salted digit derangement (bijective, shape-preserving, every id
+changes); re-run the gate on the renamed episode. Cap `n_invoices` at 100 (worst measured 176 docs) and
+reject any episode outside 200–2000 ledger rows / 20–200 documents in the gate.
+Consequence: renamed ids may coincide with ids of the *other* episode of a pair (harmless). Ledger size
+stays ≈250–600 rows, inside the supported range but not near 2000.

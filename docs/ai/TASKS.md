@@ -5,7 +5,7 @@ reviewer runs `make verify` before merge.
 
 ## Claude (generation, verification)
 
-### CL-01 id_salt metamorphic renaming — todo
+### CL-01 id_salt metamorphic renaming — done (agent/cl-01)
 Files: `sim/episode.py` (`project`), `tests/test_generator.py`. Deps: none.
 In: config `id_salt`. Out: every public id (doc, invoice, payment, row, entity) consistently renamed;
 truth renamed identically. Acceptance: for 10 seeds, oracle reward identical with/without salt;
@@ -18,7 +18,7 @@ Files: `episodes/train/`, `episodes/dev/`, `private/` (truth for train/dev commi
 Acceptance: mix of clean, each single fault, both interactions, ≥2 currencies; all pass gate;
 regeneration from listed seeds is byte-identical (test). Review: self + Codex spot check.
 
-### CL-03 Size-range coverage — todo
+### CL-03 Size-range coverage — done (agent/cl-01; cap n_invoices ≤ 100, gate enforces ranges)
 Files: `tests/test_generator.py`. Acceptance: expert + n_invoices=150 + 12 errors passes gate and stays
 < 5 s generation; ledger ≤ 2000 rows, docs ≤ 200.
 
