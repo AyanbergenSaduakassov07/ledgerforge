@@ -104,6 +104,20 @@ MAX_INVOICES = 100
 DEFAULT_INVOICES = {"basic": 30, "intermediate": 50, "advanced": 70, "expert": 100}
 
 
+_CONFIG_TYPES: dict[str, tuple[type, ...]] = {
+    "industry": (str,),
+    "difficulty": (str,),
+    "base_currency": (str,),
+    "n_invoices": (int, type(None)),
+    "faults": (dict,),
+    "interactions": (dict,),
+    "distractors": (bool,),
+    "id_salt": (str, type(None)),
+    "order_salt": (str, type(None)),
+    "schema_version": (str,),
+}
+
+
 @dataclass(frozen=True)
 class ScenarioConfig:
     """Input to reset(seed, config). Unknown keys are rejected so typos cannot silently pass."""
@@ -131,6 +145,11 @@ class ScenarioConfig:
         return cfg
 
     def validate(self) -> None:
+        for name, kinds in _CONFIG_TYPES.items():
+            value = getattr(self, name)
+            # bool is an int subclass, so reject it explicitly where an int is expected
+            if not isinstance(value, kinds) or (isinstance(value, bool) and bool not in kinds):
+                raise ValueError(f"config {name} has the wrong type ({type(value).__name__})")
         if self.industry not in INDUSTRIES:
             raise ValueError(f"industry must be one of {INDUSTRIES}")
         if self.difficulty not in DIFFICULTIES:
@@ -140,10 +159,10 @@ class ScenarioConfig:
         if self.n_invoices is not None and not 20 <= self.n_invoices <= MAX_INVOICES:
             raise ValueError(f"n_invoices must be in 20..{MAX_INVOICES}")
         for key, n in self.faults.items():
-            if key not in ERROR_TYPES or not isinstance(n, int) or n < 0:
+            if key not in ERROR_TYPES or type(n) is not int or n < 0:
                 raise ValueError(f"bad fault entry {key}={n}")
         for key, n in self.interactions.items():
-            if key not in INTERACTIONS or not isinstance(n, int) or n < 0:
+            if key not in INTERACTIONS or type(n) is not int or n < 0:
                 raise ValueError(f"bad interaction entry {key}={n}")
         if self.total_errors() > 12:
             raise ValueError("at most 12 errors per episode")

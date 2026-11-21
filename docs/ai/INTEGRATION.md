@@ -76,3 +76,11 @@ Commands: `make verify` → ruff clean, pytest all passed (count in commit messa
 - The user handed the remaining Codex scope to Claude. `agents/reconciler.py` gained a `naive` constructor flag (default unchanged); new `benchmark/ablation.py`, `tests/test_ablation.py`, `outputs/reports/ablation.md`, Makefile `bench` and `ablation` targets.
 - Ablation on 40 episodes: reconciler F1 1.000; naive duplicates 0.418, period 0.487, FX 0.083, allocation 0.199, all four 0.045.
 - Docker installs only the new `test` dependency group (ruff downloads stalled the build).
+
+## cl-10 config type validation (bug fix)
+- Bug: `reset(seed, {"interactions": [...]})` raised `AttributeError` inside the evaluator, which is not in the service's caught set, so the evaluator process died ("evaluator connection lost") and the env could not reset again.
+- Fix: `ScenarioConfig.validate()` type-checks every field first (bools rejected where ints are expected) and raises `ValueError`, which the service turns into an error reply. Regression tests: `test_contracts.py::test_invalid_configs_rejected` (+8 cases), `test_env.py::test_wrong_config_type_is_an_error_not_a_dead_evaluator`.
+- Stress check while finding it: 12-error expert episodes (n_invoices 100) score TP 12 / FP 0 for the reconciler in ≈0.05 s each.
+
+## Codex CX-06 (agent/cx-06, uncommitted in ../ledgerforge-cx-06) — not merged
+- Codex finished a second ablation that *disables* each detector. It overlaps cl-09 (ADR-017), which swaps each rule for a shortcut, and both edit `agents/reconciler.py`. Disabling a detector only loses that fault type (F1 ≈0.80–0.87, FN only); the precision-trap result (credit-note offset off → 10–20 FP) is already covered by cl-09's `naive duplicates` row. Kept as-is in its worktree for reference; not merged to avoid two ablation APIs.

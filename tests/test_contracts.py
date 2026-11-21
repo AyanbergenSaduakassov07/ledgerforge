@@ -111,6 +111,14 @@ def test_malformed_submissions_rejected(sub):
         {"unknown_key": 1},
         {"faults": {"duplicate_invoice": 13}},
         {"difficulty": "impossible"},
+        {"interactions": ["duplicate_with_allocation"]},
+        {"faults": [1]},
+        {"faults": {"fx_rate": True}},
+        {"n_invoices": "50"},
+        {"distractors": "yes"},
+        {"id_salt": 7},
+        {"industry": ["construction"]},
+        {"schema_version": None},
     ],
 )
 def test_invalid_configs_rejected(bad):

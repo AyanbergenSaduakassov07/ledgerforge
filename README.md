@@ -69,10 +69,10 @@ Container, fully offline:
 
 ```bash
 docker build -t ledgerforge .
-docker run --rm --network none ledgerforge   # pytest (167 tests) + oracle demo with replay
+docker run --rm --network none ledgerforge   # pytest (176 tests) + oracle demo with replay
 ```
 
-Verified on 2026-11-21: the image builds, and the container passes all 167 tests and the replay demo
+Verified on 2026-11-21: the image builds, and the container passes all 176 tests and the replay demo
 with networking disabled.
 
 ---
@@ -480,7 +480,7 @@ uv run ledgerforge release && git status --short episodes/     # no diff = repro
 | `episodes/` | 20 open episodes + `splits.json` |
 | `outputs/` | committed benchmark, failure analysis and ablation reports |
 | `docs/` | contracts, architecture, design note, ADRs, evaluation, security, scenarios |
-| `tests/` | 167 tests: contracts, money, generator gate, env, matcher, adversarial, baselines, release |
+| `tests/` | 176 tests: contracts, money, generator gate, env, matcher, adversarial, baselines, release |
 
 ---
 
@@ -511,7 +511,7 @@ Two AI coding agents under one human owner, with a written contract first:
 | 10 train + 10 dev episodes | Implemented; byte-identical regeneration tested |
 | 4 baseline policies + rule ablation | Implemented, tested, results committed |
 | Adversarial suite (flag-all, permutations, malformed, limits) | Implemented, tested |
-| Docker image, offline run | Verified 2026-11-21 (`--network none`, 167 tests + demo pass) |
+| Docker image, offline run | Verified 2026-11-21 (`--network none`, 176 tests + demo pass) |
 
 ---
 
