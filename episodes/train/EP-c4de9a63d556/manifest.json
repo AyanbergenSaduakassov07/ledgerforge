@@ -1,8 +1,15 @@
 {
   "schema_version": "1.0.0",
-  "generator_version": "0.3.0",
+  "generator_version": "0.4.0",
   "episode_id": "EP-c4de9a63d556",
   "base_currency": "KZT",
+  "currency_exponents": {
+    "CNY": 2,
+    "EUR": 2,
+    "KZT": 2,
+    "RUB": 2,
+    "USD": 2
+  },
   "period_start": "2025-10-01",
   "period_end": "2025-12-31",
   "timezone": "Asia/Baku",
