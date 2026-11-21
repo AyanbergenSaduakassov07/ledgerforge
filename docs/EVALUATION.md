@@ -19,12 +19,13 @@ not change. Inspection steps = non-submit steps; on truncation all steps.
 | Perfect beats silence on flawed books | `test_slice` oracle 1.0 vs empty −1 | done |
 | Silence beats false accusations on clean books | `test_matcher` empty/clean cases | done |
 | Repeats don't add reward | `test_matcher` repeat = FP | done |
-| Flag-all scores poorly | — | planned (CX-03) |
+| Flag-all scores poorly | `test_adversarial::test_flagging_everything_has_negative_mean_reward` | done |
 | Invalid evidence / wrong ids / currency / amount never TP | `test_matcher` each criterion | done |
 | Malformed → −1 | `test_contracts`, `test_env` | done |
 | Inspection cost small between equal results | `test_inspection_steps_are_penalised` | done |
 | No second submit | `test_cannot_submit_twice` | done |
-| Order invariance of equivalent submissions | — | planned (CX-03) |
+| Order invariance of equivalent submissions | `test_adversarial::test_reward_is_invariant_across_twenty_finding_permutations` | done |
+| Persuasive explanation can't rescue a wrong amount | `test_adversarial::test_persuasive_explanation_does_not_rescue_a_wrong_amount` | done |
 
 ## Benchmark (planned, Codex)
 

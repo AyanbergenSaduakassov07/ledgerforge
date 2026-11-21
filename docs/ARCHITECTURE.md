@@ -63,3 +63,4 @@ attempt, mutations, counterfactual) goes to `provenance.json`, never to the agen
 | 4 baselines + benchmark + failure analysis | oracle only | — | **planned** (CX-02..05) |
 | Adversarial suite §11.4 | partly | see EVALUATION.md | **partial** (CX-03) |
 | Offline container | `Dockerfile` | — | written, not built |
+- Design note: [DESIGN_NOTE.md](DESIGN_NOTE.md)
