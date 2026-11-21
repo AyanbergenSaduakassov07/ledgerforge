@@ -98,3 +98,17 @@ Consequence: larger ledgers cost list steps (reconciler ≈22–25 inspection st
 add no new look-alikes, so they do not make labels harder to derive. The reconciler's foreign-payment
 shortcut was removed in the same change (Codex-owned file, one-line deletion, recorded in
 INTEGRATION.md); it again scores F1 1.0, with 0 FP.
+
+## ADR-017 Rule ablation instead of more look-alikes
+Context: CL-09 planned extra hard negatives, but the generator already emits recurring services,
+credit note + reissue, instalments, split remittances, advances, timezone-boundary invoices and
+early next-period invoices. A policy that encodes every published rule will always reach F1 1.0;
+that is what the acceptance gate promises. The useful question is whether a policy that *skips* a
+rule is punished.
+Decision: `ReconcilerPolicy(naive={...})` swaps a published rule for a common shallow heuristic
+(duplicates by supplier + total, period by printed date, FX at the period-end rate, allocation at the
+payment-date rate). `benchmark/ablation.py` measures each swap on train + dev + mirror and writes
+`outputs/reports/ablation.md`. Default behaviour is unchanged.
+Consequence: measured on 40 episodes, every shortcut costs F1 (0.42 → 0.08) and all four together
+give F1 0.045 / reward −0.94. The look-alikes are load-bearing. CL-09 closed without new generators.
+The Docker image installs only the `test` dependency group (pytest, jsonschema); ruff stays in `dev`.

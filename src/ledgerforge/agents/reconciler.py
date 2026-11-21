@@ -21,9 +21,24 @@ from ledgerforge.contracts.schemas import (
     TABLES,
 )
 
+# Shallow heuristics an auditor might use instead of a published rule (ablation, ADR-017).
+NAIVE_RULES = ("duplicates", "period", "fx", "allocation")
+
 
 class ReconcilerPolicy:
-    name = "reconciler"
+    """Encodes the published rules. `naive` swaps chosen rules for a common shallow heuristic:
+    duplicates: same supplier + total (ignores line items and credit notes);
+    period: the printed document date instead of the policy timezone;
+    fx: the period-end rate instead of the recognition-date rate;
+    allocation: remittance at the payment-date rate instead of proportional AP relief.
+    """
+
+    def __init__(self, naive: frozenset[str] | set[str] = frozenset()) -> None:
+        unknown = set(naive) - set(NAIVE_RULES)
+        if unknown:
+            raise ValueError(f"unknown naive rules: {sorted(unknown)}")
+        self.naive = frozenset(naive)
+        self.name = "reconciler" if not naive else "naive_" + "+".join(sorted(naive))
 
     def reset(self, observation: dict[str, Any]) -> None:
         self._manifest = observation["manifest"]
@@ -87,12 +102,16 @@ class ReconcilerPolicy:
             evidence = [row["row_id"]]
             booked = row["credit_minor"] - row["debit_minor"]
             day = local_date(invoice["issued_at"], self._timezone)
-            if not in_period(day, self._manifest["period_start"], self._manifest["period_end"]):
+            printed = invoice["issued_at"][:10]
+            period_day = printed if "period" in self.naive else day
+            start, end = self._manifest["period_start"], self._manifest["period_end"]
+            if not in_period(period_day, start, end):
                 yield self._finding(
                     REPORTING_PERIOD, docs, booked, evidence, "Issued outside the posted period."
                 )
             currency = invoice["currency"]
-            rate = fx.effective(currency, self._base, day) if currency != self._base else None
+            rate_day = end if "fx" in self.naive else day
+            rate = fx.effective(currency, self._base, rate_day) if currency != self._base else None
             if rate is not None:
                 rate_id, rate_value = rate
                 expected = convert(invoice["total_minor"], currency, self._base, rate_value)
@@ -127,11 +146,11 @@ class ReconcilerPolicy:
                 invoice["entity_id"],
                 invoice["currency"],
                 abs(invoice["total_minor"]),
-                items,
+                () if "duplicates" in self.naive else items,
             )
             if sign == 1:
                 charges[signature].append(invoice)
-            else:
+            elif "duplicates" not in self.naive:
                 credits[signature] += 1
         for signature, group in charges.items():
             ordered = sorted(group, key=lambda doc: (parse_ts(doc["issued_at"]), doc["doc_id"]))
@@ -166,7 +185,8 @@ class ReconcilerPolicy:
             posted_advance = sum(row["debit_minor"] - row["credit_minor"] for row in advances)
             if posted_advance != payment["amount_minor"] - sum(refs.values()):
                 stray.extend(row["row_id"] for row in advances)
-            if not stray:
+            naive = "allocation" in self.naive
+            if not stray and not naive:
                 continue
             for invoice_id, amount in sorted(refs.items()):
                 invoice = invoices.get(invoice_id)
@@ -174,9 +194,12 @@ class ReconcilerPolicy:
                     continue
                 posting = postings[invoice_id]
                 booked = posting["credit_minor"] - posting["debit_minor"]
-                shortfall = (
-                    round(Decimal(amount) * booked / invoice["total_minor"]) - actual[invoice_id]
+                expected = (
+                    self._at_payment_rate(payment, amount)
+                    if naive
+                    else round(Decimal(amount) * booked / invoice["total_minor"])
                 )
+                shortfall = expected - actual[invoice_id]
                 if shortfall:
                     yield self._finding(
                         PAYMENT_ALLOCATION,
@@ -185,6 +208,13 @@ class ReconcilerPolicy:
                         sorted(stray),
                         "Remittance references differ from the posted payable allocations.",
                     )
+
+    def _at_payment_rate(self, payment: dict[str, Any], amount: int) -> int:
+        if payment["currency"] == self._base:
+            return amount
+        day = local_date(payment["timestamp"], self._timezone)
+        rate = FxTable(self._rows["fx"]).effective(payment["currency"], self._base, day)
+        return convert(amount, payment["currency"], self._base, rate[1]) if rate else amount
 
     def _finding(
         self, kind: str, docs: list[str], amount: int, rows: list[str], explanation: str

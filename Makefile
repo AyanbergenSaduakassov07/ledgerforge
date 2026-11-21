@@ -1,4 +1,4 @@
-.PHONY: install lint test demo verify walkthrough clean
+.PHONY: install lint test demo verify walkthrough bench ablation clean
 
 install:
 	uv sync --frozen
@@ -18,6 +18,13 @@ verify: install lint test demo
 
 walkthrough:
 	uv run python -m ledgerforge.walkthrough
+
+bench:
+	uv run ledgerforge bench
+	uv run python -m ledgerforge.benchmark.analyze
+
+ablation:
+	uv run python -m ledgerforge.benchmark.ablation
 
 clean:
 	rm -rf outputs/trajectories/*.jsonl episodes/generated private/generated .pytest_cache .ruff_cache

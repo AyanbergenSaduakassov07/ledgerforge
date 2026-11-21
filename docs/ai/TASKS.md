@@ -55,13 +55,13 @@ Review: Claude checks numbers come from raw outputs.
 Files: `outputs/reports/failure_analysis.md`, `benchmark/analyze.py`. Deps: CX-04.
 Categorise reconciler FP/FN by fault type and cause. Measured only.
 
-### CL-09 Harder legitimate look-alikes — todo (Claude)
+### CL-09 Harder legitimate look-alikes — closed (ADR-017: the listed look-alikes already exist; measured by CX-06 instead)
 Files: `sim/`, `verification/auditor.py`, `docs/SCENARIOS.md`, new ADR. Gate must stay green.
 Add rule-consistent distractors that a shallow rule set flags wrongly: one invoice settled by two
 partial remittances, credit note + reissue with reordered line items, same-amount recurring services
 from one vendor. Published rules (CONTRACTS) must already decide each case; no new hidden rules.
 
-### CX-06 Rule ablation report — todo (Codex)
+### CX-06 Rule ablation report — done (Claude, agent/cl-09; user handed Codex scope to Claude)
 Files: `benchmark/ablation.py`, `outputs/reports/ablation.md`, a test. Deps: none (re-run after CL-09).
 Run the reconciler with each check disabled in turn (duplicates, allocation, FX, period, credit-note
 offset) on train + dev + mirror. Report F1/reward per ablation. Shows which published rule each
